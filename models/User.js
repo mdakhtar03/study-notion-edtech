@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 const userSchema = new mongoose.Schema({
     firstName:{
         type:String,
-        required:true
+        required:true,
+        trim:true,
     },
     
     lastName:{
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema({
     additionalDetails:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:"profile"
+        ref:"Profile"
     },
     courses:[{
         type:mongoose.Schema.Types.ObjectId,
