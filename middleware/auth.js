@@ -20,7 +20,10 @@ try {
     try {
         const decode = jwt.verify(token, process.env.JWT_SECRET)
         console.log(decode)
+
+        // -> Important
         req.user = decode
+
     } catch (error) {
         //verification issue
         return res.status(401).json({
@@ -52,7 +55,7 @@ exports.isStudent = async (req,res,next)=>{
             message:"User role cannot be verified, please try again"
         })
     }
-    next()
+    next();
 }
 //isInstructor
 exports.isInstructor = async (req,res,next)=>{
@@ -70,7 +73,7 @@ exports.isInstructor = async (req,res,next)=>{
             message:"Instructor role cannot be verified, please try again"
         })
     }
-    next()
+    next();
 }
 //isAdmin
 
