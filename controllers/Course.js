@@ -1,5 +1,5 @@
 const Course = require("../models/Course")
-const Tag = require("../models/Tags")
+const Category = require("../models/Category")
 const User = require("../models/User")
 const {uploadImageToCloudinary} = require("../utils/imageUploader")
 require("dotenv").config();
@@ -8,13 +8,13 @@ require("dotenv").config();
 exports.createCourse = async (req,res)=>{
     try{
       // fetch all data
-      const {courseName, courseDescription, whatYouWillLearn, price, tag} = req.body;
+      const {courseName, courseDescription, whatYouWillLearn, price, category} = req.body;
       
       //get thumbnail
       const thumbnail = req.files.thumbnailImage;
     
       //validation 
-      if(!courseName || !courseDescription || !whatYouWillLearn || !price || !tag || !thumbnail){
+      if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail){
             return res.status(400).json({
                 success:false,
                 message:"Fill input Field"
@@ -33,13 +33,13 @@ exports.createCourse = async (req,res)=>{
             message:"Instructor details not found"
         })
       }
-      //check given tag is valid or not
-      const tagDetails = await Tag.findById({tag})
+      //check given category is valid or not
+      const categoryDetails = await Category.findById({category})
 
-      if(!tagDetails){
+      if(!categoryDetails){
          return res.status(404).json({
             success:false,
-            message:"Tag not found"
+            message:"category not found"
         })
       }
       //Upload image to cloudinary
@@ -52,7 +52,7 @@ exports.createCourse = async (req,res)=>{
         instructor:instructorDetails._id,
         whatYouWillLearn,
         price,
-        tag:tagDetails._id,
+        category:categoryDetails._id,
         thumbnail:thumbnailImage.secure_url})
 
 
@@ -62,8 +62,8 @@ exports.createCourse = async (req,res)=>{
         },{returnDocument:"after"})
 
 
-        //Update the TAG Schema
-        await Tag.findByIdAndUpdate(tag,
+        //Update the category Schema
+        await category.findByIdAndUpdate(category,
           {
             $push:{
               course: newCourse._id
