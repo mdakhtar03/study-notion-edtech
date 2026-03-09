@@ -5,6 +5,7 @@ const Course = require("../models/Course");
 const User = require("../models/User")
 const {courseEnrollment} = require("../mail/templates/courseEnrollmentEmail");
 const { default: mongoose } = require("mongoose");
+const crypto = require("crypto")
 
 
 //Capture the payment and initiate the Razorpay order
@@ -38,16 +39,16 @@ exports.capturePayment = async (req,res)=>{
             {
                 return res.status(200).json({
                     success:false,
-                    message:"Student is already Purchase the code"
+                    message:"Student is already Purchase the course"
                 })
             } 
         //order create
-        const amount = Course.price
+        const amount = course.price
         const currency = "INR"
         const option = {
             amount: amount*100,
             currency: "INR",
-            receipt: Math.random(Date.now()).toString(),
+            receipt: `rcpt_${Date.now()}_${Math.floor(Math.random()*1000)}`,
             notes:{
                 courseId: course_Id,
                 userId
@@ -61,7 +62,7 @@ exports.capturePayment = async (req,res)=>{
 
             return res.status(200).json({
                 success:true,
-                courseName: course,courseName,
+                courseName: course.courseName,
                 courseDescription : course.courseDescription,
                 thumbnail:course.thumbnail,
                 orderId: paymentResponse.id,
@@ -94,6 +95,7 @@ exports.verifySignature = async (req, res)=>{
         // match server secret and payment secret 
         const webhookSecret = "12345678"
 
+        //it is comes from razorpay from header[x-razorpay-signature]
         const signature = req.headers["x-razorpay-signature"];
 
         const shasum = crypto.createHmac("sha256",webhookSecret)
@@ -113,7 +115,7 @@ exports.verifySignature = async (req, res)=>{
                 if(!enrolledCourse){
                     return res.status(500).json({
                         success:false,
-                        message:"Course not found"
+                        message:"Course not found" 
                     })
                 }
                 console.log(enrolledCourse)
@@ -121,7 +123,7 @@ exports.verifySignature = async (req, res)=>{
                 const enrolledStudent = await User.findByIdAndUpdate(userId,
                     {$push:{courses:courseId}},{new:true}
                 )
-                console.log(enrolled)
+                console.log(enrolledStudent)
 
                 //send mail for confirmation
                 const emailResponse = await mailSender(
