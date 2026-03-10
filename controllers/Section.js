@@ -32,7 +32,7 @@ exports.createSection = async (req, res)=>{
         return res.status(500).json({
             success:false,
             message:"Failed to create Section",
-            error
+            error:error
         })
     }
 }
@@ -95,7 +95,7 @@ exports.deleteSection = async (req,res)=>{
         await Section.findByIdAndDelete(sectionId)
 
 
-        //TODO this this will be check in testing
+        //TODO  this will be check in testing
         //pull Id from course collection 
 
         // await Course.findByIdAndUpdate(courseId,{
