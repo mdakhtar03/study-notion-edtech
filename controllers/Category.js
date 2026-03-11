@@ -1,7 +1,8 @@
 const Category = require("../models/Category")
+const Course = require("../models/Course")
 
 //Create category handler function
-exports.CreateCategory = async (req,res)=>{
+exports.createCategory = async (req,res)=>{
     try {
         //fetch data
        const {name,description} = req.body
@@ -47,6 +48,46 @@ exports.showAllCategory = async (req, res)=>{
          return res.status(500).json({
             success:false,
             message:error.message
+        })
+    }
+}
+
+//category pageDetails
+exports.categoryPageDetails = async (req,res)=>{
+    try {
+        //get categoryId
+        const {categoryId} = req.body;
+
+        //get courses for specified categoryId
+        const selectedCategory = await Category.findById(categoryId).populate("course").exec()
+
+        //validation
+        if(!selectedCategory)
+        {
+            return res.status(404).json({
+                success:false,
+                message:"Data Not Found"
+            });
+        }
+        //get courses for different category
+        const differentCategories = await Category.find({
+            _id: {$ne: categoryId}
+        }).populate("course").exec();
+
+        //get top selling courses
+        const topFiveCourse = await Course.aggregate([
+            {$project:{courseName:1,courseDescription:1,totalStudent:{$size:"$studentEnrolled"}}},
+            {$sort:{totalStudent:-1}},{$limit:5}])
+        
+        return res.status(200).json({
+            success:true,
+            data:selectedCategory,differentCategories,topFiveCourse
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Error in category controller",
+            error:error.message
         })
     }
 }

@@ -112,27 +112,30 @@ exports.getAverageRating = async (req,res)=>{
     try {
 
         const {courseId} = req.body;
-        const allRating = await RatingAndReviews.find({course:courseId},{rating:true,_id:0})
+        const result = await RatingAndReviews.aggregate([
+            {
+                $match:{
+                    course: new mongoose.Types.ObjectId(courseId),
+                },
+            },
+            {
+                $group:{_id:null, averageRating:{$avg:"$rating"}}
+            }
+        ])
 
-         if(allRating.length === 0)
+         if(result.length === 0)
         {
             return res.status(404).json({
             success:false,
             message:"Rating Not Found"
         })}
-        let sum = 0,count=0;
-        allRating.forEach(element => {
-            sum = sum+element.rating;
-            count++;
-        });
-        const averageRating= sum/count;
+       
 
-//  const avgRating = await RatingAndReviews.aggregate([{ $group: { _id: null, averageRating: { $avg: "$rating" } } }]);
         
         return res.status(200).json({
             success:true,
             message:"AVG Rating rating",
-            averageRating:averageRating
+            averageRating:result[0].averageRating,
         })
         
     } catch (error) {
