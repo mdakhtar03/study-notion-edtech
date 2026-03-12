@@ -59,7 +59,7 @@ exports.categoryPageDetails = async (req,res)=>{
         const {categoryId} = req.body;
 
         //get courses for specified categoryId
-        const selectedCategory = await Category.findById(categoryId).populate("course").exec()
+        const selectedCategory = await Category.findById(categoryId).populate("Course").exec()
 
         //validation
         if(!selectedCategory)
@@ -75,13 +75,13 @@ exports.categoryPageDetails = async (req,res)=>{
         }).populate("course").exec();
 
         //get top selling courses
-        const topFiveCourse = await Course.aggregate([
+        const topCourse = await Course.aggregate([
             {$project:{courseName:1,courseDescription:1,totalStudent:{$size:"$studentEnrolled"}}},
-            {$sort:{totalStudent:-1}},{$limit:5}])
+            {$sort:{totalStudent:-1}},{$limit:10}])
         
         return res.status(200).json({
             success:true,
-            data:selectedCategory,differentCategories,topFiveCourse
+            data:selectedCategory,differentCategories,topCourse
         })
     } catch (error) {
         return res.status(500).json({

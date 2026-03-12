@@ -80,7 +80,7 @@ exports.signUp = async (req,res)=>{
         if(password !== confirmPassword){
            return res.status(400).json({
                 success:false,
-                message:"Password and ConfirmPassword Value does not match, please try again"
+                message:"Password and Confirm Password Value does not match, please try again"
             })
         }
         //check user already exist or not 
@@ -104,7 +104,7 @@ exports.signUp = async (req,res)=>{
                 success:false,
                 message:"OTP not Found"
             })
-        } else if(otp !== recentOtp.otp){
+        } else if(otp !== recentOtp[0].otp){
             return res.status(400).json({
                 success:false,
                 message:"Invalid OTP"
@@ -113,6 +113,9 @@ exports.signUp = async (req,res)=>{
 
         //Hash password
         const hashedPassword = await bcrypt.hash(password,10);
+        //Create the user
+        let approved = "";
+        approved === "Instructor"?(approved = false):(approved = true);
         //entry create in DB
         const profileDetails = await Profile.create({gender:null,dateOfBirth:null,about:null,contactNumber:null})
         const user = await User.create({
@@ -165,14 +168,16 @@ exports.login = async (req,res)=>{
                 accountType: user.accountType,
             }
             const token = jwt.sign(payload,process.env.JWT_SECRET,{
-                expiresIn:"2h",
+                expiresIn:"24h",
             });
+            //save Token to user document in database
             // user.toObject();
             user.token = token;
             user.password = undefined
 
             const options = {
-                expires: new Date(Date.now()+ 3*24*60*60*1000)
+                expires: new Date(Date.now()+ 3*24*60*60*1000),
+                httpOnly:true
             }
             //Create cookie and send response
             res.cookie("token",token,options).status(200).json({
@@ -246,7 +251,7 @@ exports.changePassword = async (req,res)=>{
     //send mail - password update
     try {
         const emailResponse = await mailSender(updateUserDetails.email,
-            passwordUpdated(updateUserDetails.email,
+            passwordUpdated(updateUserDetails.email,"Password Updated Successfully",
                 `Password updated successfully for ${updateUserDetails.firstName} ${updateUserDetails.lastName}`
             )
         );

@@ -28,7 +28,7 @@ exports.resetPasswordToken = async (req,res)=>{
     //create url
     const url =`http://localhost:3000/update-password/${token}`
     //send mail containing the url
-    await mailSender(email,"Password Reset Link",`password reset Link: ${url}`)
+    await mailSender(email,"Password Reset Link",`Please click the link to change the password: ${url}`)
     //return response                                                               
     return res.json({
         success:true,
@@ -70,7 +70,7 @@ exports.resetPassword = async (req,res)=>{
         })
     }
     //token time check
-    if(userDetails.resetPasswordExpires< Date.now())
+    if(userDetails.resetPasswordExpires < Date.now())
     {
         return res.json({
             success:false,

@@ -1,7 +1,7 @@
 const RatingAndReviews = require("../models/RatingAndReviews")
 const Course = require("../models/Course")
 
-exports.RatingAndReviews = async (req,res)=>{
+exports.createRating = async (req,res)=>{
     try {
 
         //get user id
