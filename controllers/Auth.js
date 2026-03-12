@@ -34,8 +34,10 @@ exports.sendOTP = async (req,res)=>{
             specialChars:false,
         });
         console.log("OTP generated ",otp);
+        console.log("1")
         //check unique OTP or Not
         let result = await OTP.findOne({otp:otp})
+        
         while(result){
             otp=otpGenerator.generate(6,{
             upperCaseAlphabets:false,
@@ -46,8 +48,10 @@ exports.sendOTP = async (req,res)=>{
         }
         const otpPayload = {email,otp};
         //create an entry for OTP
-        const otpBody = await OTP.create(otpPayload)
-        console.log(otpBody)
+        console.log("!!!!!!!!")
+        const otpBody = await OTP.create({email:email,otp:otp})
+        console.log("!!!!!!!!")
+        console.log("otp Body",otpBody)
         //return response successfully
         res.status(200).json({
             sucess:true,
@@ -58,6 +62,7 @@ exports.sendOTP = async (req,res)=>{
         console.log("error in sendOTP",error)
             return res.status(500).json({
                 success:false,
+                output:"Error in OTP",
                 message:error.message
             })
         }
@@ -255,7 +260,7 @@ exports.changePassword = async (req,res)=>{
                 `Password updated successfully for ${updateUserDetails.firstName} ${updateUserDetails.lastName}`
             )
         );
-        console.log(`Email sent successfully `, emailResponse.response)
+        console.log(`Email sent successfully `, emailResponse?.response)
     } catch (error) {
         console.error("Error occurred while sending email ",error);
         return res.status(500).json({

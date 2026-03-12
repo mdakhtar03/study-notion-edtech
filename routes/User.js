@@ -28,5 +28,4 @@ router.post("/reset-password-token",resetPasswordToken)
 //route for reset the password
 router.post("/reset-password",resetPassword)
 
-
-exports.module = router;
+module.exports = router;

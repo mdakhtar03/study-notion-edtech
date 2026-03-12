@@ -91,4 +91,5 @@ exports.isAdmin = async (req,res,next)=>{
             message:"Admin role cannot be verified, please try again"
         })
     }
+    next();
 }

@@ -82,7 +82,7 @@ exports.resetPassword = async (req,res)=>{
 
     //password update
     await User.findOneAndUpdate(
-        {token:token},{password:hashedPassword},{returnDocument:"after"}
+        {token:null},{password:hashedPassword},{returnDocument:"after"}
     )
     //response 
     return res.status(200).json({

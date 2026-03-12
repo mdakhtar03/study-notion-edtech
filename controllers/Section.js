@@ -73,8 +73,8 @@ exports.deleteSection = async (req,res)=>{
     try {
 
         //fetch data 
-        const {sectionId}=req.params
-        const {courseId} = req.body
+       
+        const {courseId,sectionId} = req.body
 
         //validation
         if(!sectionId || !courseId){

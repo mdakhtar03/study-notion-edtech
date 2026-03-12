@@ -25,15 +25,15 @@ const {auth,isAdmin,isInstructor,isStudent} = require("../middleware/auth")
 // ***********************************************************
 //       Router for creating course Only is Instructors
 // ***********************************************************
-router.post("/createcourse",auth,isInstructor,createCourse)
+router.post("/createCourse",auth,isInstructor,createCourse)
 //Router for createSection
-router.post("/createsection" ,auth,isInstructor,createSection )
+router.post("/addSection" ,auth,isInstructor,createSection )
 //Router for update the section
 router.post("/updatesection",auth,isInstructor,updateSection)
 //Router for deleteSection
-router.post("/deletesection", auth,isInstructor,deleteSection)
+router.post("/deleteSection", auth,isInstructor,deleteSection)
 //Router for create Subsection
-router.post("/createsubsection",auth,isInstructor,createSubsection)
+router.post("/addSubSection",auth,isInstructor,createSubsection)
 //Router for updateSubsection
 router.post("/updatesubsection",auth,isInstructor,updateSubSection)
 //Router for delete SubSection
@@ -41,7 +41,7 @@ router.post("/deletesubsection",auth,isInstructor,deleteSubSection)
 //Router for getAllcourses
 router.get("/getallcourses",getAllCourses)
 //router for getCourseDetails
-router.post("/getcoursedetails",getCourseDetails)
+router.post("/getCourseDetails",getCourseDetails)
 
 
 // ********************************************************************************
@@ -49,8 +49,8 @@ router.post("/getcoursedetails",getCourseDetails)
 // ********************************************************************************
 
 //Router for create category
-router.post("/createcategory",auth,isAdmin,createCategory);
-router.get("/showAllcategory",showAllCategory);
+router.post("/createCategory",auth,isAdmin,createCategory);
+router.get("/showAllCategories",showAllCategory);
 router.post("/getcategorypagedetails",categoryPageDetails)
 
 
@@ -60,6 +60,6 @@ router.post("/getcategorypagedetails",categoryPageDetails)
 // *********************************************************************
 router.post("/createrating",auth,isStudent,createRating)
 router.get("/getreviews",allRatingAndReview)
-router.get("getAverageRating",getAverageRating)
+router.get("/getAverageRating",getAverageRating)
 
-exports.module = router;
+module.exports = router;
