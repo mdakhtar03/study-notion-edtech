@@ -2,7 +2,7 @@ import React from 'react'
 
 const HighlightText = ({text}) => {
   return (
-    <span className=' font-bold text-richblue-300'>{" "}{text}</span>
+    <span className=' font-bold text-gradient'>{" "}{text}</span>
   )
 }
 
