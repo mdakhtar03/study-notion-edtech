@@ -1,6 +1,6 @@
 import React from 'react'
 import CTAButton from "../HomePage/Button"
-import HighlightText from './HighlightText'
+// import HighlightText from './HighlightText'
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import {TypeAnimation} from 'react-type-animation'
 const CodeBlocks = ({position, heading, subheading, ctabtn1, ctabtn2, 

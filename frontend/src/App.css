@@ -66,3 +66,12 @@ html, body {
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
 }
+
+.homepage_bg{
+    background-image: url("../src/assets/Images/bghome.svg");
+  }
+
+  .background{
+
+    
+  }
