@@ -177,9 +177,14 @@ codeColor={"text-yellow-25"}
         </div>    
 
     {/* Footer */}
-    
+    <div>
+        
+    </div>
 
 </div>
+
+
+
   )
 }
 export default Home;
