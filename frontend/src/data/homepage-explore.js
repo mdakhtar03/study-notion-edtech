@@ -1,4 +1,4 @@
-export const HomePageExplore = [
+ const HomePageExplore = [
     {
         tag: 'Free',
         courses : [
@@ -115,3 +115,4 @@ export const HomePageExplore = [
         ]
     },
 ]
+export default HomePageExplore

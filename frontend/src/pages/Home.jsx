@@ -8,6 +8,7 @@ import CTAButton from "../components/core/HomePage/Button"
 import Banner from "../assets/Images/banner.mp4"
 import CodeBlocks from '../components/core/HomePage/CodeBlocks';
 import InstructorSection from "../components/core/HomePage/InstructorSection"
+import ExploreMore from "../components/core/HomePage/ExploreMore"
 
 import TimelineSection from '../components/core/HomePage/TimelineSection';
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection';
@@ -31,8 +32,7 @@ import LearningLanguageSection from '../components/core/HomePage/LearningLanguag
 
 
             <div className='text-center text-4xl font-semibold mt-7'>
-                Empower Your Future with 
-                <HighlightText text={"Coding Skills"}/>
+                Empower Your Future with <HighlightText text={" Coding Skills"}/>
             </div>
 
             <div className=' w-[80%] text-center text-lg font-bold text-richblack-300'>
@@ -57,11 +57,11 @@ import LearningLanguageSection from '../components/core/HomePage/LearningLanguag
 
 
 
-     {/*  code Section 1 */}
+     {/*  Code Box 1 */}
             <div className='w-[100%] px-10'>
         <CodeBlocks 
          position={"lg:flex-row"}
-         heading={<div className='text-4xl font-semibold'>Unlock your <HighlightText text={"Coding Potential"}/> with our online coding courses</div>}
+         heading={<div className='text-4xl font-semibold'>Unlock your <HighlightText text={" Coding Potential"}/> with our online coding courses</div>}
           
             subheading={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you"}
            ctabtn1={
@@ -96,9 +96,7 @@ codeColor={"text-yellow-25"}
 
 
 
-    {/* code Section 2 */}
-
-
+    {/* Code Box 2 */}
 <div className='w-[100%] px-10 '>
         <CodeBlocks 
          position={"lg:flex-row-reverse"}
@@ -132,12 +130,16 @@ codeColor={"text-yellow-25"}
             codeColor={"text-yellow-25"}
           />
         </div>
+        {/* Filtered course */}
+     <div>
+            <ExploreMore />
+     </div>
     </div>
 
-     
+    
 
     {/* Section 2 */}
-            <div className=' bg-pure-greys-5 text-richblack-700'>
+            <div className=' bg-pure-greys-5 text-richblack-700 mt-60'>
             <div className='homepage_bg h-[300px]'>
             <div className='w-11/12 max-w-maxContent flex items-center justify-center gap-5 mx-auto'>
             <div className='h-[250px]'></div>
@@ -178,7 +180,7 @@ codeColor={"text-yellow-25"}
 
     {/* Footer */}
     <div>
-        
+
     </div>
 
 </div>
