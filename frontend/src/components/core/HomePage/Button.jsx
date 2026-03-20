@@ -10,7 +10,7 @@ const Button = ({children,active,linkto}) => {
         hover:scale-95 transition-all duration-200`}>
             {children}
         </div>
-    </Link>
+    </Link> 
   )
 }
 

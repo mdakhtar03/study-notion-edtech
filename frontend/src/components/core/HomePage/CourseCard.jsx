@@ -7,7 +7,7 @@ import { PresentationChartLineIcon } from '@heroicons/react/24/solid'
 
 
 
-const CourseCard = ({cardData,currentCard,setCurrentCard}) => {
+const CourseCard  = ({cardData,currentCard,setCurrentCard}) => {
 
   return (
     <div onClick={()=>setCurrentCard(cardData.heading)} className={`${currentCard === cardData.heading ? " bg-white shadow-[12px_12px_0px_0px_#FFD60A] text-richblack-800" : 
