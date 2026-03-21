@@ -1,8 +1,8 @@
 import React from 'react'
-import Logo from "../../../assets/Logo/Logo-Full-Light.png"
-import FooterDataCard from './FooterDataCard'
+import Logo from "../../assets/Logo/Logo-Full-Light.png"
+import FooterDataCard from '../core/HomePage/FooterDataCard'
 import { FaHeart } from "react-icons/fa";
-import {footerSections,Company,Resources,Community,Plans,bottomFooter, Support} from "../../../data/footer-links"
+import {footerSections,Company,Resources,Community,Plans,bottomFooter, Support} from "../../data/footer-links"
 import { Link } from 'react-router-dom';
 const Footer = () => {
    
