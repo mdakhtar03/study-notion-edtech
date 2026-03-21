@@ -1,8 +1,8 @@
-export const FooterLink2 = [
+ export const footerSections = [
   {
     title: "Subjects",
     links: [
-      { title: "Al", link: "/al" },
+      { title: "Al", link: "/ai" },
       { title: "Cloud Computing", link: "/cloud-computing" },
       { title: "Code Foundations", link: "/code-foundations" },
       { title: "Computer Science", link: "/computer-science" },
@@ -52,4 +52,39 @@ export const FooterLink2 = [
         {title: "Beta Content", link: "/beta-content"}
     ]
   }
+];
+
+export const Company = [
+  {title:"About",link:"/about"},
+  {title:"Careers",link:"/careers"},
+  {title:"Affiliates",link:"/affiliates"}
+]
+export const bottomFooter = [
+  { title: "Privacy Policy", link: "/privacy-policy" },
+  { title: "Cookie Policy", link: "/cookie-policy" },
+  { title: "Terms", link: "/terms" },
+];
+
+export const Resources = [
+  { title: "Articles", link: "/articles" },
+  { title: "Blog", link: "/blog" },
+  { title: "Chart Challenges", link: "/challenges" },
+  { title: "Docs", link: "/docs" },
+  { title: "Projects", link: "/projects" },
+  { title: "Videos", link: "/videos" },
+  { title: "Workspaces", link: "/workspaces" },
+  
+];
+export const Support = [{title:"Help Center", link:"/helpcenter"}]
+
+export const Plans = [
+  { title: "Paid Memberships", link: "/plans" },
+  { title: "For Students", link: "/students" },
+  {title:"Business solutions",link:"/businessSolutions"}
+];
+
+export const Community = [
+  { title: "Forums", link: "/forums" },
+  { title: "Chapters", link: "/chapters" },
+  { title: "Events", link: "/events" },
 ];
