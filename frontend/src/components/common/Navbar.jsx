@@ -8,11 +8,11 @@ const Navbar = () => {
 
     const location = useLocation();
     const matchRoute=(route)=>{
-            return matchPath({path:route,end: true}, location.pathname)
+            return matchPath({path:route,end: true}, location.pathname) 
     }
 
-
-  return (
+ 
+  return ( 
     <div className=' flex h-14 items-center justify-center border-b border-richblack-700'>
         <div className=' flex w-11/12 max-w-maxContent items-center justify-between'>
 
