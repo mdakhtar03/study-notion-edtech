@@ -8,6 +8,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import ProfileDropDown from "../core/Auth/ProfileDropDown"
 import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/apis'
+import { FaCaretDown } from "react-icons/fa";
 
 const Navbar = () => {
 
@@ -58,8 +59,21 @@ const Navbar = () => {
                          (<li key={index}>
                             {
                                 data.title === "Catalog"? (
-                                <div>
-                                    <p>{data.title}</p>
+                                <div className='flex items-center gap-1 group relative z-10'>
+                                    <p>{data.title}</p><FaCaretDown />
+                                    <div className=' invisible absolute left-[50%] top-[50%]
+                                     translate-x-[-50%] translate-y-[50%] flex flex-col rounded-md bg-richblack-5 p-4
+                                     text-pure-greys-900 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 lg:w-[300px]'>
+
+                                    <div className=' absolute translate-x-[80%] translate-y-[-25%] left-[50%] top-0 h-6 w-6 rotate-45 rounded group-hover:visible group-hover:opacity-100 bg-richblack-5 '></div>
+                                    
+                                        {
+                                            subLinks.length ? (subLinks.map((subLink,index)=>(
+                                                <Link key={index} to={`/catalog/${subLink._id}`}>{subLink.name}</Link>
+                                                
+                                            ))) :(<div></div>)
+                                        }
+                                    </div>
                                 </div>) : (
                                             <Link  className={`${ matchRoute(data.path) ? (" text-yellow-25"):(" text-richblue-25")}`} to={data.path}>{data.title}</Link>
                                             )
