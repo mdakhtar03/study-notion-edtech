@@ -42,7 +42,7 @@ const Navbar = () => {
 
     
   return ( 
-    <div className=' flex h-14 items-center justify-center border-b border-richblack-700 mb-12'>
+    <div className=' flex h-14 items-center justify-center border-b border-richblack-700 mb-8'>
         <div className=' flex w-11/12 max-w-maxContent items-center justify-between'>
 
         {/* Image */}

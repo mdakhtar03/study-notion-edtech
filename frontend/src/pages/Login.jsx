@@ -8,8 +8,9 @@ import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 import { setToken } from '../reducer/slices/authSlice';
 import { setUser } from '../reducer/slices/profileSlice';
-
-
+import LoginImage from "../assets/Images/login.webp"
+import FrameImage from "../assets/Images/frame.png"
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -79,7 +80,7 @@ async function submitHandler(event)
                 <input type='email' name='email' placeholder='Enter email id' onChange={changeHandler} value={formData.email}  required={true} className=' bg-richblack-800 p-3 rounded-lg lg:w-[444px] lg:h-[48px] outline-none'/>
                </div>
 
-                <div className='relative'>
+                <div className=' flex flex-col relative'>
                     <label className=' flex '>Password <CgAsterisk className=' text-pink-200' /> </label>
                 <input onChange={changeHandler} name='password' value={formData.password} type={passwordShow ? "password" : "text" }   placeholder='Enter Password' className=' bg-richblack-800 p-3 rounded-lg lg:w-[444px] lg:h-[48px] outline-none'/> 
                 <div onClick={()=>{setPasswordShow(!passwordShow)}} className=' absolute right-3 top-10 cursor-pointer'>
@@ -87,14 +88,18 @@ async function submitHandler(event)
                         passwordShow ? (<LuEyeClosed />):(<LuEye />)
                     }
                 </div>
+                <Link className=' self-end text-blue-100 font-normal text-xs font-inter' >Forgot Password</Link>
                 </div>
+
+                
                 <button className=' bg-yellow-50 rounded-lg font-medium text-richblack-900 px-3 py-2 mt-6'>Sign In</button>
             </form>
         
         </div>
 
-        <div>
-
+        <div className=' relative'>
+            <img src={LoginImage} alt='LoginImage' className=' -top-2.5 -left-2.5 absolute'/>
+            <img src={FrameImage} alt='' className=''/>
         </div>
         
 
