@@ -88,7 +88,7 @@ async function submitHandler(event)
                         passwordShow ? (<LuEyeClosed />):(<LuEye />)
                     }
                 </div>
-                <Link className=' self-end text-blue-100 font-normal text-xs font-inter' >Forgot Password</Link>
+                <Link to={"/forgot-password"} className=' self-end text-blue-100 font-normal text-xs font-inter' >Forgot Password</Link>
                 </div>
 
                 

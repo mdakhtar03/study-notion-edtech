@@ -12,7 +12,7 @@ exports.resetPasswordToken = async (req,res)=>{
     const isEmailPresent = await User.findOne({email})
     if(!isEmailPresent)
     {
-        return res.status.json({
+        return res.status(404).json({
             success:false,
             message:"User did not Exist"
         })
@@ -30,7 +30,7 @@ exports.resetPasswordToken = async (req,res)=>{
     //send mail containing the url
     await mailSender(email,"Password Reset Link",`Please click the link to change the password: ${url}`)
     //return response                                                               
-    return res.json({
+    return res.status(200).json({
         success:true,
         message:"Email Sent Successfully, Please check email and Change Pasword"
     })
