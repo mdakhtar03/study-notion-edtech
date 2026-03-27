@@ -23,3 +23,21 @@ export const getPasswordResetToken = ({email,setEmailSent})=>{
                     dispatch(setLoading(false))
                 }
 }
+
+export const resetPassword=({password,confirmPassword,token})=>{
+                return async (dispatch)=>{
+                    dispatch(setLoading(true))
+                    const url= ""
+                    try {
+                        const response = await apiConnector("POST", url, {password,confirmPassword,token})
+                        if(!response.data.success){
+                            throw new Error(response.data.message); 
+                        }
+                        toast.success("Password has been reset successfully")
+                    } catch (error) {
+                        console.log("Reset Password Token Error",error)
+                        toast.error("Unable to reset password")
+                    }
+                    dispatch(setLoading(false))
+                }
+}

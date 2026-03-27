@@ -17,7 +17,7 @@ exports.createSection = async (req, res)=>{
         //create section
         const newSection = await Section.create({sectionName:sectionName})
 
-        //push section it to Course Course with section ObjectID
+        //push section it to Course with section ObjectID
         const updatedCourseDetails = await Course.findByIdAndUpdate(courseId,{
             $push: {courseContent:newSection._id}
         }, {returnDocument:"after"})

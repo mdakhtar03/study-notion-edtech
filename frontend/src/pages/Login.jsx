@@ -11,6 +11,7 @@ import { setUser } from '../reducer/slices/profileSlice';
 import LoginImage from "../assets/Images/login.webp"
 import FrameImage from "../assets/Images/frame.png"
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -47,7 +48,7 @@ async function submitHandler(event)
     // redux 
     dispatch(setToken(response.data.token));
     dispatch(setUser(response.data.user))
-
+    toast.success("Logged In")
 
 
     } catch (error) {
