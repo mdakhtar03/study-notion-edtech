@@ -7,8 +7,6 @@ const initialState = {
                     ? JSON.parse(localStorage.getItem("user"))
                     : null,
 
-
-
 }
 
 const profileSlice = createSlice({
@@ -16,8 +14,8 @@ const profileSlice = createSlice({
     initialState,
     reducers:{
 
-        setUser(state,value){
-            state.user = value.payload
+        setUser(state,action){
+            state.user = action.payload
     }
 }
 

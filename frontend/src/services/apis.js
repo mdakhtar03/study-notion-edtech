@@ -14,6 +14,9 @@ export const AUTH_API ={
 export const PROFILE_API = {
     GET_USER_DETAILS_API: `${BASE_URL}/profile/getUserDetails`,
     GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getEnrolledCourse`,
+    UPDATE_PROFILE_API: `${BASE_URL}/profile/updateProfile`,
+    CHANGE_PASSWORD_API: `${BASE_URL}/auth/changepassword`,
+    DELETE_PROFILE_API: `${BASE_URL}/profile/deleteProfile`,
 }
 
 //PAYMENTS API
@@ -42,7 +45,32 @@ export const COURSE_API = {
     DELETE_SECTION_API: `${BASE_URL}/course/deletesection`,
     DELETE_SUBSECTION_API: `${BASE_URL}/course/deletesubsection`,
 
-    DELETE_COURSE_API:
+    // DELETE_COURSE_API: `${BASE_URL}/course/deletesCourse`,
+
+    // GET_FULL_COURSE_DETAILS_AUTHENTICATED: `${BASE_URL}/course/getFullCourseDetails`
+
+    LECTURE_COMPLETION_API: `${BASE_URL}/course/updateCourseProgress`,
+    CREATE_RATING_API: `${BASE_URL}/course/createRating`
+
+}
+
+//RATING AND REVIEWS
+
+export const RATING_AND_REVIEW = {
+    REVIEWS_DETAILS_API:  `${BASE_URL}/course/getreviews`,
+    AVERAGE_RATING_API: `${BASE_URL}/course/getAverageRating`,
+}
+
+
+//CATALOG PAGE DATA
+export const CATALOG_API = {
+    CATALOGPAGEDATA_API: `${BASE_URL}/course/getCategoryPageDetails`,
+}
+
+
+//CONTACT-US API
+export const CONTACT_US_ENDPOINT = {
+    CONTACT_US_API : `${BASE_URL}/reach/contact`
 }
 
 
@@ -51,4 +79,3 @@ export const categories = {
     CATEGORIES_API: `${BASE_URL}/course/showAllCategories`
 };
 
-console.log(BASE_URL);
