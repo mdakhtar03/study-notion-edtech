@@ -20,7 +20,7 @@ export function sendOtp(email,navigate){
         try {
              const response = await apiConnector("POST",SENDOTP_API, {
                 email,
-                checUserPresent: true,         
+                checkUserPresent: true,         
             })
 
             console.log("OTP Sent API Response ", response)

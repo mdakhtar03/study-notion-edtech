@@ -5,6 +5,7 @@ import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { resetPassword } from '../services/operations/authAPI';
+import Spinner from '../components/common/Spinner';
 
 
 const UpdatePassword = () => {
@@ -38,16 +39,16 @@ function handleOnSubmit(e){
   return (
     <div>
         {
-            loading ? <div> Loading... </div> : 
+            loading ? <div> <Spinner/> </div> : 
                         (
-                            <div className='flex flex-col gap-6'>
-                                <h1>Choose  new password</h1>
-                                <p>Almost done. Enter your new password and youre all set.</p>
-                               <form onSubmit={handleOnSubmit}>
-                                 <label className=' relative'>
-                                    <p>New password <sup>*</sup> </p>
+                            <div className='flex flex-col justify-center  gap-6 w-[35%] mx-auto p-8'>
+                                <h1 className=' font-semibold text-3xl text-richblack-5'>Choose  new password</h1>
+                                <p className=' font-normal text-lg text-richblack-100 '>Almost done. Enter your new password and youre all set.</p>
+                               <form className=' flex flex-col gap-5' onSubmit={handleOnSubmit}>
+                                 <label className=' relative flex flex-col gap-1'>
+                                    <p className=' font-normal text-sm text-richblack-5 '>New password <sup className=' text-pink-100'>*</sup> </p>
                                     <input 
-                                    className=''
+                                    className=' bg-richblack-800 p-3 w-full rounded-lg text-richblack-5 outline-none'
                                     placeholder='Enter new password'
                                     type={`${showPassword ? "text" : "password"}`}
                                     name='password'
@@ -56,32 +57,33 @@ function handleOnSubmit(e){
                                      />
                                      <div onClick={()=>{setShowPassword(!showPassword)}} className=' absolute right-3 top-10 cursor-pointer'>
                                                          {
-                                                             showPassword ? (<LuEyeClosed />):(<LuEye />)
+                                                             showPassword ? (<LuEyeClosed className=' text-richblack-5' />):(<LuEye className=' text-richblack-5' />)
                                                          }
                                                      </div>
                                 </label>
-                                 <label  className=' relative'>
-                                    <p>Confirm new password <sup>*</sup> </p>
+                                 <label  className=' relative flex flex-col gap-1'>
+                                    <p className='font-normal text-sm text-richblack-5'>Confirm new password <sup className=' text-pink-100'>*</sup> </p>
                                     <input 
-                                    className=''
+                                    className=' bg-richblack-800 p-3 w-full rounded-lg text-richblack-5 outline-none'
                                     placeholder='Confirm new password'
                                     type={`${showConfirmPassword ? "text" : "password"}`}
                                     name='confirmPassword'
                                     value={confirmPassword}
+                                    onChange={handleOnChange}
                                      />
                                         <div onClick={()=>{setShowConfirmPassword(!showConfirmPassword)}} className=' absolute right-3 top-10 cursor-pointer'>
                                                          {
-                                                             showConfirmPassword ? (<LuEyeClosed />):(<LuEye />)
+                                                             showConfirmPassword ? (<LuEyeClosed className=' text-richblack-5' />):(<LuEye  className=' text-richblack-5'/>)
                                                          }
                                                      </div>
                                 </label>
-                                <button className='submit'>
+                                <button className=' bg-yellow-50 rounded-lg p-3 text-base font-medium text-richblack-900'>
                                     Reset Password
                                 </button>
                                </form>
                                <div>
-                                        <Link to={"/login"}>
-                                            <IoIosArrowRoundBack />  <p>Back to login</p>
+                                        <Link className=' flex items-center text-richblack-5 font-medium'  to={"/login"}>
+                                            <IoIosArrowRoundBack size={24} />  <p>Back to login</p>
                                         </Link>
                                 </div>
                             </div>

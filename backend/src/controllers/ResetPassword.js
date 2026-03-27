@@ -32,7 +32,7 @@ exports.resetPasswordToken = async (req,res)=>{
     //return response                                                               
     return res.status(200).json({
         success:true,
-        message:"Email Sent Successfully, Please check email and Change Pasword"
+        message:"Email Sent Successfully, Please check email and Change Password"
     })
     
    } catch (error) {
@@ -53,7 +53,7 @@ exports.resetPassword = async (req,res)=>{
 
     //validation
     if(password !== confirmPassword){
-        return res.json({
+        return res.status(401).json({
             success:false,
             message:"Password Field misMatched"
         })
@@ -72,7 +72,7 @@ exports.resetPassword = async (req,res)=>{
     //token time check
     if(userDetails.resetPasswordExpires < Date.now())
     {
-        return res.json({
+        return res.status(401).json({
             success:false,
             message:"Token is Expired, Please regenrate your token"
         })
@@ -81,13 +81,13 @@ exports.resetPassword = async (req,res)=>{
     const hashedPassword = await bcrypt.hash(password,10)
 
     //password update
-    await User.findOneAndUpdate(
-        {token:null},{password:hashedPassword},{returnDocument:"after"}
+    await User.findOneAndUpdate( {token},{password:hashedPassword, token:null, resetPasswordExpires:null},{ new: true }
     )
+
     //response 
     return res.status(200).json({
         success:true,
-        message:"Password reset successful"
+        message:"Password reset successfull"
     })
 
    } catch (error) {

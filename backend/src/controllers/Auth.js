@@ -54,7 +54,7 @@ exports.sendOTP = async (req,res)=>{
         console.log("otp Body",otpBody)
         //return response successfully
         res.status(200).json({
-            sucess:true,
+            success:true,
             message:"OTP Send Successfully",
             otp
         })

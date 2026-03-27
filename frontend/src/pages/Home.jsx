@@ -22,10 +22,10 @@ import LearningLanguageSection from '../components/core/HomePage/LearningLanguag
             <Link to={"/signup"}>
                 <div className='mx-auto rounded-full bg-richblack-700 
                 py-[6px] px-[16px] font-bold text-richblack-200 transition-all duration-200 hover:scale 
-                w-fit group-hover:bg-richblack-800 gap-2'>
+                w-fit group-hover:bg-richblack-800  gap-2'>
 
                     <div className='flex items-center'>
-                        <p>Become an Instructor</p>
+                        <p className=' '>Become an Instructor</p>
                         <MdOutlineKeyboardArrowRight />
                     </div>
                 </div>
