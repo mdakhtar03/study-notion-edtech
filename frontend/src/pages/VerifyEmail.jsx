@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,10 +15,18 @@ const VerifyEmail = () => {
     
     const dispatch = useDispatch()
     const [OTP, setOTP] = useState("")
-  
+    
+    const {accountType,firstName,lastName,email,password,confirmPassword,} = signupData
+
+    //if data is not present in signupData
+    useEffect(()=>{
+        if(!signupData){
+            navigate("/signup")
+        }
+    },[])
     const onSubmitHandler = (event)=>{
         event.preventDefault()
-        
+        dispatch(signUp(accountType,firstName,lastName,email,password,confirmPassword,OTP,navigate))
     }
 
   return (
@@ -67,8 +75,8 @@ const VerifyEmail = () => {
                                             <IoIosArrowRoundBack size={24} />  <p>Back to login</p>
                             </Link>
 
-                            <button className='flex items-center text-base font-medium text-richblack-5 gap-x-2' 
-                            onClick={() => dispatch(sendOtp({ email: signupData.email }))}>
+                            <button type='submit' className='flex items-center text-base font-medium text-richblack-5 gap-x-2' 
+                            onClick={() => dispatch(sendOtp(email,navigate))}>
                             <LuCircleFadingArrowUp  />
                                 Resend OTP
                             </button>
