@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import OtpInput from 'react-otp-input';
 import { Link, useNavigate } from 'react-router-dom';

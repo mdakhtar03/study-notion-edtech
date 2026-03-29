@@ -3,7 +3,7 @@ exports.contactUs = async (req,res)=>{
     //fetch details
     const {firstName,lastName,email,number}= req.body;
     //validation
-    if(!firstName||!lastName||!email||!number)
+    if(!firstName||!lastName||!email)
     {
         return res.status(401).json({
             success:false,
