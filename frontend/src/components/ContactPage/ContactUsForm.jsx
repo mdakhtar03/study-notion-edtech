@@ -5,7 +5,7 @@ import {CONTACT_US_ENDPOINT} from "../../services/apis"
 import CountryCode from  "../../data/countrycode.json"
 import Spinner from '../common/Spinner';
 import toast from 'react-hot-toast';
-
+import { FaChevronDown } from "react-icons/fa";
 const ContactUsForm = () => {
 
     const [loading, setLoading] =useState(false)
@@ -60,7 +60,7 @@ const ContactUsForm = () => {
                     placeholder='Enter first name' 
                     {...register("firstName",{required:true})}
                     
-                    className=' p-3 bg-richblack-800 rounded-lg outline-none'
+                    className=' main-shadow p-3 bg-richblack-800 rounded-lg outline-none'
 
                     />
                     {
@@ -78,7 +78,7 @@ const ContactUsForm = () => {
                     <input type='text' name='lastName' id='lastName' 
                     placeholder='Enter last name' 
                     
-                    className=' p-3 bg-richblack-800 rounded-lg outline-none'
+                    className=' p-3 main-shadow bg-richblack-800 rounded-lg outline-none'
                     {...register("lastName",{required:true})}
                     />
                     {
@@ -97,7 +97,7 @@ const ContactUsForm = () => {
                             id='email' 
                             placeholder='Enter Email'
                             {...register("email",{required:true})}
-                            className=' p-3 bg-richblack-800 rounded-lg outline-none'
+                            className=' p-3 main-shadow bg-richblack-800 rounded-lg outline-none'
                      />
                      {
                         errors.email && (<span className=" text-pink-200">Please enter your email address</span>)
@@ -109,16 +109,24 @@ const ContactUsForm = () => {
                         <label className=' self-start'>Phone Number</label>
                         <div className='flex flex-row gap-3'>
                             {/* Dropdown */}
+                            <div className='relative w-20'>
+
                             <select name='dropdown' id='dropdown'
-                             className=' bg-richblack-800 w-20 rounded-lg outline-none p-3'
+                             className=' bg-richblack-800 main-shadow w-14 rounded-lg outline-none p-3 '
                              {...register("countrycode",{required:true})} > 
                             {
                                 CountryCode.map((code,index)=>(
                                     <option value={code.code} key={index}> {code.code} - {code.country} </option>
                                 ))
-                            } </select>
+                            }
+                            
+                             </select>
+                                <div className="pointer-events-none absolute right-2 top-4">
+                                    <FaChevronDown className="text-richblack-25 text-sm" />
+                                </div>
+                            </div>
                             <input type='number' placeholder='1234567890' id='phonenumber' 
-                            name='phonenumber' className=' bg-richblack-800 w-[90%] rounded-lg outline-none p-3'
+                            name='phonenumber' className=' no-spinner main-shadow bg-richblack-800 w-[90%] rounded-lg outline-none p-3'
                                 {...register("phoneNo", {required:true, maxLength:{value:10, message:"Invalid Phone Number"},
                                 minLength:{value:8,message: "Invalid Phone Number"}} )}
                             />

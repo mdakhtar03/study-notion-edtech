@@ -119,4 +119,51 @@ html, body {
     height: 32px;
   }
 }
+/* Text Gradient CSS */
+.expertise {
+  color: #ff512f;
+  background-image: linear-gradient(45deg, #ff512f , #f09819 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+/* Text Gradient CSS */
+.unparalleled {
+  color: #e65c00;
+  background-image: linear-gradient(45deg, #e65c00 , #f9d423 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
 
+.OurFoundingStory{
+  
+  color: #833ab4;
+  background-image: linear-gradient(45deg, #833ab4 , #fd1d1d 50%, #fcb045 200%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Remove spinner arrows */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.main-shadow {
+  box-shadow: inset 0px -1px 0px 0px #FFFFFF;
+}
