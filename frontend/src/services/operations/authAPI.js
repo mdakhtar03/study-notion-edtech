@@ -2,7 +2,7 @@ import { setLoading, setToken } from "../../reducer/slices/authSlice"
 import { apiConnector } from "../apiconnector";
 import toast from "react-hot-toast"
 import {AUTH_API} from "../apis"
-import { setUser } from "../../reducer/slices/profileSlice";
+import { setUser } from "../../reducer/slices/profileSlice"
 
 
 import {resetCart} from "../../reducer/slices/cartSlice"
