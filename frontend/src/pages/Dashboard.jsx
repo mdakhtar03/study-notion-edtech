@@ -12,14 +12,18 @@ const Dashboard = () => {
         return ( <Spinner/> )
     }   
   return (
-    <div className=' relative flex '>
-        <Sidebar/>
-        <div>
-            <div>
-                <Outlet/>
-            </div>
-        </div>
+   <div className='relative flex h-full'>
+  <Sidebar/>
+
+  {/* FIXED */}
+  <div className='min-h-[calc(100vh-3.5rem)] overflow-auto flex-1'>
+    
+    <div className='mx-auto w-11/12 max-w-[1000px] '>
+      <Outlet/>
     </div>
+
+  </div>
+</div>
   )
 }
 

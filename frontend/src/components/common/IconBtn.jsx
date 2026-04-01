@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { MdEditDocument } from "react-icons/md";
 const IconBtn = ({
                     text,
                     onclick,
@@ -7,11 +7,14 @@ const IconBtn = ({
                     disabled,
                     outline=false,
                     customClasses,
-                    type
+                    type,
+                    isstyle=false
 }) => {
+  
   return (
-    <button disabled={disabled} onClick={onclick}
+    <button className={`${isstyle ? " bg-yellow-50 flex items-center gap-x-2 h-fit px-5 py-2  rounded-lg text-richblack-900" : ""}`}  disabled={disabled} onClick={onclick}
      type={type} >
+      <MdEditDocument  />
         {
             children? (<><span> {text} </span> {children} </>) :(text)
         }

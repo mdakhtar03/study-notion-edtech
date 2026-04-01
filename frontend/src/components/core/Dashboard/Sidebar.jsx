@@ -21,9 +21,9 @@ const Sidebar = () => {
     } 
 
   return (
-    <div>
-        <div className=' flex flex-col w-[25%] border-r border-richblack-700 '>
-            <div className=' flex flex-col'>
+    <div className=' -mt-8'>
+        <div className=' flex flex-col  h-full  border-r bg-richblack-800  border-richblack-700 '>
+            <div className=' flex flex-col text-richblack-300 font-medium text-sm'>
                 {
                     sidebarLinks.map((link)=>{
                         if(link.type && user?.accountType !== link.type) return null;
@@ -34,13 +34,15 @@ const Sidebar = () => {
                 }
             </div>
 
+            {/* Horizontal line */}
             <div className='mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600'></div>
-            <div className='flex flex-col '>
+                
+                <div className='flex flex-col justify-center   '>
                     <SidebarLink 
-                        link={{name:"Setting", path:"dashboard/settings"}}
+                        link={{name:"Settings", path:"/dashboard/settings"}}
                         iconName={"VscSettingsGear"}
-                    />
-                    <button onClick={()=>setConfirmationModal({
+                        />
+                    <button  onClick={()=>setConfirmationModal({
 
                                  text1: "Are You Sure?",
                                  text2:"You will be logged out of your Account",
@@ -49,13 +51,15 @@ const Sidebar = () => {
                                  btn1Handler:()=>dispatch(logout(navigate)),
                                  btn2Handler:()=>setConfirmationModal(null)
                                  }
-                    )} className=' text-sm font-medium text-richblack-300' >
+                    )} className=' text-sm  font-medium text-richblack-300' >
 
-                        <div className='flex items-center gap-x-2 '> 
+                        <div className='flex text-lg px-8 py-2  items-center gap-x-2 '> 
                             <VscSignOut /> <span> Logout </span>
                         </div>
                     </button>
             </div>
+            
+            
         </div>
         {confirmationModal && <ConfirmationModal modalData={confirmationModal}/>}
     </div>

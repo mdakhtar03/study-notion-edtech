@@ -11,12 +11,12 @@ const SidebarLink = ({iconName,link}) => {
         return matchPath({path:route},location.pathname)
     }
   return (
-    <NavLink to={link.path} className={` relative px-8 py-2 text-sm font-medium ${matchRoute(link.path) ? 
-    " bg-yellow-800 " : " bg-opacity-0" }`}>
-     <span className={`absolute ${matchRoute(link.path) ? " opacity-100" : " opacity-0"} `}></span> 
+    <NavLink to={link.path} className={` relative text-richblack-300 text-lg px-8 py-2 font-medium ${matchRoute(link.path) ? 
+    " bg-yellow-800 text-yellow-50 " : " bg-opacity-0" }`}>
+     <span className={`absolute  ${matchRoute(link.path) ? " opacity-100" : " opacity-0"} `}></span> 
     
-     <div className=' flex item-center gap-2'>
-           <Icon className=" text-lg"/>
+     <div className=' flex items-center gap-2'>
+           <Icon />
             <span> {link.name} </span>
      </div>
    
