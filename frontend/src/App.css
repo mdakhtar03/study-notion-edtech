@@ -167,3 +167,16 @@ select {
 .main-shadow {
   box-shadow: inset 0px -1px 0px 0px #FFFFFF;
 }
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #facc15; /* yellow */
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none; /* hide default input */
+}

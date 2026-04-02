@@ -3,13 +3,14 @@ import { apiConnector } from "../apiconnector";
 import toast from "react-hot-toast"
 import {AUTH_API} from "../apis"
 import { setUser } from "../../reducer/slices/profileSlice"
-
+import { PROFILE_API } from "../apis";
 
 import {resetCart} from "../../reducer/slices/cartSlice"
 
 
-const {SENDOTP_API, SIGNUP_API, LOGIN_API, RESETPASSTOKEN_API,RESETPASSWORD_API} = AUTH_API
+const {SENDOTP_API, SIGNUP_API,  LOGIN_API, RESETPASSTOKEN_API,RESETPASSWORD_API} = AUTH_API
 
+const { UPDATE_PROFILE_API } = PROFILE_API;
 
 
 
@@ -23,8 +24,8 @@ export function sendOtp(email,navigate){
                 checkUserPresent: true,         
             })
 
-            console.log("OTP Sent API Response ", response)
-            console.log(response.data.success)
+            // console.log("OTP Sent API Response ", response)
+            // console.log(response.data.success)
 
             if(!response.data.success){
                 throw new Error(response.data.message); 
@@ -71,7 +72,7 @@ export function signUp(
         toast.success("SignUp Successful")
         navigate("/login")                                                                 
         } catch (error) {
-            console.log("SIGNUP API ERROR.....", error)
+            // console.log("SIGNUP API ERROR.....", error)
             toast.error("Signup Failed")
             navigate("/signup")
         }
@@ -87,13 +88,13 @@ export function login(email, password, navigate){
         dispatch(setLoading(true))
         try {
             const response = await apiConnector("POST",LOGIN_API,{email,password})
-            console.log("Login API Response..... ", response)
+            // console.log("Login API Response..... ", response)
             if(!response.data.success){
                 toast.error(response.data.message)
                 throw new Error(response.data.message);
             }
             toast.success("Logged In")
-
+            
             dispatch(setToken(response.data.token))
             const userImage = response.data?.user?.image ? response.data.user.image 
             : `https://api.dicebear.com/5.x/initials.svg?seed=${encodeURIComponent(
@@ -107,7 +108,7 @@ export function login(email, password, navigate){
             localStorage.setItem("user",JSON.stringify(userData))
             navigate("/dashboard/my-profile")
         } catch (error) {
-            console.log("Login API ERROR......",error)
+            // console.log("Login API ERROR......",error)
             toast.error("Login Failed")
         }
         dispatch(setLoading(false))
@@ -123,7 +124,7 @@ export const getPasswordResetToken = ({email,setEmailSent})=>{
                         
                           
                         const response = await apiConnector("POST", RESETPASSTOKEN_API, {email})
-                        console.log("Reset Password Token Response....",response);
+                        // console.log("Reset Password Token Response....",response);
                         
                         if(!response.data.success)
                         {
@@ -132,7 +133,7 @@ export const getPasswordResetToken = ({email,setEmailSent})=>{
                         setEmailSent(true)
                         toast.success("Reset Email Sent")
                     } catch(error){
-                        console.log("Reset Password Token Error", error)
+                        // console.log("Reset Password Token Error", error)
                     }
                     dispatch(setLoading(false))
                 }
@@ -149,13 +150,28 @@ export const resetPassword=({password,confirmPassword,token})=>{
                         }
                         toast.success("Password has been reset successfully")
                     } catch (error) {
-                        console.log("Reset Password Token Error",error)
+                        // console.log("Reset Password Token Error",error)
                         toast.error("Unable to reset password")
                     }
                     dispatch(setLoading(false))
                 }
 }
 
+
+export async function imageUpdate(formData){
+    try {
+        const response = await apiConnector("PUT", UPDATE_PROFILE_API, formData);
+        if(!response.data.success){
+            throw new Error(response.data.message);
+        }
+        console.log(UPDATE_PROFILE_API)
+        toast.success("Image Uploaded");
+        return response
+    } catch (error) {
+        toast.error("Unable to Send Image");
+       console.log(error.message)
+    }
+}
 
 export function logout(navigate){
     return (dispatch)=>{

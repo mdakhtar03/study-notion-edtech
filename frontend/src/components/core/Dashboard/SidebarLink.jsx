@@ -13,7 +13,9 @@ const SidebarLink = ({iconName,link}) => {
   return (
     <NavLink to={link.path} className={` relative text-richblack-300 text-lg px-8 py-2 font-medium ${matchRoute(link.path) ? 
     " bg-yellow-800 text-yellow-50 " : " bg-opacity-0" }`}>
-     <span className={`absolute  ${matchRoute(link.path) ? " opacity-100" : " opacity-0"} `}></span> 
+     <span className={`  ${matchRoute(link.path) ? " opacity-100" : " opacity-0"} `}>
+      <div className=' h-full absolute top-0 left-0 w-1 bg-yellow-400 '> </div>
+     </span> 
     
      <div className=' flex items-center gap-2'>
            <Icon />
