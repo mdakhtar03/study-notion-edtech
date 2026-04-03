@@ -15,7 +15,13 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Error from "./pages/Error";
 import Sitting from "./components/core/Dashboard/Sitting";
+import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
+import Cart from "./components/core/Dashboard/Cart/index"
+import { ACCOUNT_TYPE } from "./utils/constants";
+import { useSelector } from "react-redux";
+
 function App() {
+  const {user} = useSelector((state)=>state.profile)
   return (
     <div className=" w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar/>
@@ -41,6 +47,11 @@ function App() {
         <Route path="/dashboard" element={ <PrivateRoute> <Dashboard/> </PrivateRoute>    }>
           <Route path="my-profile" element={<MyProfile/>} />
           <Route path="settings" element={<Sitting/>} />
+          
+          { user?.accounType === ACCOUNT_TYPE.STUDENT && 
+          <> <Route path="enrolled-courses" element={<EnrolledCourses/>} />
+            <Route path="cart" element={<Cart/>} /></>
+           }
         </Route>
         <Route path="*" element={<Error/>} />
       </Routes>

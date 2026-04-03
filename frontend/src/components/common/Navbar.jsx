@@ -22,9 +22,9 @@ const Navbar = () => {
             try{
                 const result = await apiConnector("GET",categories.CATEGORIES_API)
                 console.log("BASE_URL:", process.env.REACT_APP_BASE_URL);
-                console.log("Result", result)
+                // console.log("Result", result)
                 setSubLinks(result?.data?.allCategorys)
-                console.log("subLinks", subLinks)
+                // console.log("subLinks", subLinks)
                 
             }
             catch(error){

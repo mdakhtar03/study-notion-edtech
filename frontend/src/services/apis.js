@@ -13,7 +13,7 @@ export const AUTH_API ={
 
 export const PROFILE_API = {
     GET_USER_DETAILS_API: `${BASE_URL}/profile/getUserDetails`,
-    GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getEnrolledCourse`,
+    GET_USER_ENROLLED_COURSES_API: `${BASE_URL}/profile/getEnrolledCourses`,
     UPDATE_PROFILE_API: `${BASE_URL}/profile/updateDisplayPicture`,
     CHANGE_PASSWORD_API: `${BASE_URL}/auth/changepassword`,
     DELETE_PROFILE_API: `${BASE_URL}/profile/deleteProfile`,

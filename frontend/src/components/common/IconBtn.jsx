@@ -12,7 +12,9 @@ const IconBtn = ({
 }) => {
   
   return (
-    <button className={`${isstyle ? " bg-yellow-50 flex items-center gap-x-2 h-fit px-5 py-2  rounded-lg text-richblack-900" : ""}`}  disabled={disabled} onClick={onclick}
+    <button className={`
+    ${isstyle ? "bg-yellow-50 flex items-center gap-x-2 h-fit px-5 py-2 rounded-lg text-richblack-900" : ""}
+    ${customClasses || ""}`}  disabled={disabled} onClick={onclick}
      type={type} >
       <MdEditDocument  />
         {

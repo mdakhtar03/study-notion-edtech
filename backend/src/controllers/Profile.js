@@ -149,7 +149,7 @@ exports.updateDisplayPicture = async (req,res)=>{
 exports.getEnrolledCourse = async (req,res)=>{
 try {
     const userId = req.user.id;
-    const enrolledCourse = User.findById(userId).populate("courses").exec()
+    const enrolledCourse = await User.findById(userId).populate("courses").exec()
     if(!enrolledCourse)
     {
         return res.status(400).json({
