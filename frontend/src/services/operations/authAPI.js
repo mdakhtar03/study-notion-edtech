@@ -160,7 +160,9 @@ export const resetPassword=({password,confirmPassword,token})=>{
 
 export async function imageUpdate(formData){
     try {
+       
         const response = await apiConnector("PUT", UPDATE_PROFILE_API, formData);
+        
         if(!response.data.success){
             throw new Error(response.data.message);
         }

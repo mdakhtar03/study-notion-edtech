@@ -6,6 +6,7 @@ import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { imageUpdate } from '../../../services/operations/authAPI';
+import toast from 'react-hot-toast';
 
 const Sitting = () => {
     const [showCurrentPassword,setShowCurrentPassword] = useState(false)
@@ -21,8 +22,8 @@ const [file, setFile] = useState(null);
 
 const handleFileChange = (e) => {
   const selectedFile = e.target.files[0];
-  console.log("Selected file:", selectedFile);
   setFile(selectedFile);
+  
 };
 
 
@@ -31,15 +32,16 @@ const imageUploader = async () => {
   console.log("Upload clicked");
 
   if (!file) {
-    console.log("No file selected");
-    return;
+    toast.error("Please select an image");
+  return;
   }
 
   const formData = new FormData();
 
-
+  formData.append("displayPicture",file)
   const output = await imageUpdate(formData);
-
+  setFile(null)
+  
   console.log("output", output);
 };
 
@@ -60,9 +62,18 @@ const imageUploader = async () => {
       className='hidden'
       onChange={handleFileChange}
     />
+    
   </label>
-
+    {file && (
+  <div className="text-caribbeangreen-200 mt-2">
+    <p className="font-medium">{file.name}</p>
+    <p className="text-sm">
+      {(file.size / 1024).toFixed(2)} KB
+    </p>
+  </div>
+)}
   <button
+    disabled={!file}
     type='button'
     onClick={imageUploader}
     className='flex text-base text-richblack-900 font-medium items-center gap-x-1 rounded-lg bg-yellow-50 py-2 px-4'
