@@ -17,6 +17,7 @@ export const PROFILE_API = {
     UPDATE_PROFILE_API: `${BASE_URL}/profile/updateDisplayPicture`,
     CHANGE_PASSWORD_API: `${BASE_URL}/auth/changepassword`,
     DELETE_PROFILE_API: `${BASE_URL}/profile/deleteProfile`,
+    UPDATE_PROFILE_DETAILS_API: `${BASE_URL}/profile/updateProfile`,
 }
 
 //PAYMENTS API

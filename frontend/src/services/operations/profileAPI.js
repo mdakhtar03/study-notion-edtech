@@ -16,8 +16,7 @@ export async function getUserEnrolledCourses(token){
                 throw new Error(response.data.message);
                 
              }
-             console.log("Printing response", response)
-
+            
              result = response.data
             
     } catch (error) {
@@ -28,4 +27,46 @@ export async function getUserEnrolledCourses(token){
     return result
 }
 
+export async function UpdateProfile (token,data){
+    const toastId = toast.loading("Loading")
+    try {
+        const response = await apiConnector("PUT", PROFILE_API.UPDATE_PROFILE_DETAILS_API,
+            data, {Authorization: `Bearer ${token}`}
+         )
+         if(!response.data.success)
+         {
+            throw new Error(response.data.message);
+            
+         }
+          
+
+    } catch (error) {
+      
+        toast.error("Could not update Profile details")
+        return
+    } finally {
+    toast.dismiss(toastId);  
+  }
+    toast.success("Profile Updated")
+}
+
+export async function updatePassword (token,data){
+    const toastId = toast.loading("Loading")
+    try {
+        const response = await apiConnector("POST", PROFILE_API.CHANGE_PASSWORD_API, data,
+            {Authorization: `Bearer ${token}`}
+        )
+        if(!response.data.success)
+         {
+            throw new Error(response.data.message);
+            
+         }
+    } catch (error) {
+        toast.error("Could not update password")
+        return
+    }finally {
+    toast.dismiss(toastId);  
+  }
+   toast.success("Password Updated")
+}
 

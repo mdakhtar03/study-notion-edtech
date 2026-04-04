@@ -48,7 +48,7 @@ function App() {
           <Route path="my-profile" element={<MyProfile/>} />
           <Route path="settings" element={<Sitting/>} />
           
-          { user?.accounType === ACCOUNT_TYPE.STUDENT && 
+          { user?.accountType === ACCOUNT_TYPE.STUDENT && 
           <> <Route path="enrolled-courses" element={<EnrolledCourses/>} />
             <Route path="cart" element={<Cart/>} /></>
            }

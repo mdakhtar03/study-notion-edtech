@@ -218,9 +218,9 @@ exports.changePassword = async (req,res)=>{
     const userDetails = await User.findById(req.user.id);
     
     //get oldPassword, newPassword, confirmNewPassword
-    const {oldPassword,newPassword,confirmPassword} = req.body;
+    const {oldPassword,newPassword} = req.body;
     //validation
-    if(!oldPassword || !newPassword || !confirmPassword)
+    if(!oldPassword || !newPassword)
     {
         return res.status(401).json({
             success:false,
@@ -236,13 +236,7 @@ exports.changePassword = async (req,res)=>{
             message:"Old password is incorrect"
         })
     }
-    if(newPassword !== confirmPassword)
-    {
-        return res.status(401).json({
-            sucess:false,
-            message:"New Passwords are not match "
-        });
-    }
+   
 
     //hash password
     const hashedPassword = await bcrypt.hash(newPassword,10);
@@ -255,11 +249,14 @@ exports.changePassword = async (req,res)=>{
 
     //send mail - password update
     try {
-        const emailResponse = await mailSender(updateUserDetails.email,
-            passwordUpdated(updateUserDetails.email,"Password Updated Successfully",
-                `Password updated successfully for ${updateUserDetails.firstName} ${updateUserDetails.lastName}`
-            )
-        );
+        const emailResponse = await mailSender(
+                        updateUserDetails.email,
+                        "Password Updated Successfully",
+                        passwordUpdated(
+                            updateUserDetails.email,
+                            `${updateUserDetails.firstName} ${updateUserDetails.lastName}`
+                        )
+                        );
         console.log(`Email sent successfully `, emailResponse?.response)
     } catch (error) {
         console.error("Error occurred while sending email ",error);
