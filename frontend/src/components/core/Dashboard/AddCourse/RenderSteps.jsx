@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { FaCheckCircle } from "react-icons/fa";
-import CourseInformationForm from "./CourseInformationForm"
+import CourseInformationForm from "./courseInformation/CourseInformationForm"
 const RenderSteps = () => {
 
     const {step} = useSelector((state)=>state.course)
@@ -21,32 +21,36 @@ const RenderSteps = () => {
     ]
 
   return (
-  <>
-    <div>
-        {steps.map ((items)=>(
-            <>
-                <div key={items.id}>
-                    <div  className={`${items.id === step ? 
-                    "bg-yellow-900 border-yellow-50 text-yellow-50 rounded-full" : 
-                    " bg-richblack-800 text-richblack-300 border-richblack-700 rounded-full"}  `}>
-                    {
-                        step > items.id ? (<FaCheckCircle />) : (items.id)
-                    }
-                    </div>
-                </div>
-                {/* Add dashes b/w labels */}
-            </>
-        )) }
+  <div className=" flex flex-col mx-auto">
+    <div className="flex items-center">
+  {steps.map((items, index) => (
+    <div key={items.id} className="flex flex-col items-center flex-1">
+
+      {/* Step Circle */}
+      <div
+        className={`flex items-center justify-center w-8 h-8 rounded-full border ${
+          items.id === step
+            ? "bg-yellow-900 border-yellow-50 text-yellow-50"
+            : "bg-richblack-800 border-richblack-700 text-richblack-300"
+        }`}
+      >
+        {step > items.id ? <FaCheckCircle /> : items.id}
+      </div>
+        <p className=" flex-1" key={index}> {items.title} </p>
+
+      {/* Line */}
+      {index < steps.length - 1 && (
+        <hr className="flex-1 flex-row border-t-2 border-dotted border-richblack-700 mx-2" />
+      )}
+
     </div>
-    <div>
-        {steps.map((item)=>(
-            <p key={item}> {item.title} </p>
-        ))}
-    </div>
+  ))}
+</div>
+    
     {step === 1 && <CourseInformationForm/>}
     {/* {step === 2 && <CourseBuilderForm/>}
     {step === 3 && <PublishCourse/>} */}
-  </>
+  </div>
   )
 }
 
