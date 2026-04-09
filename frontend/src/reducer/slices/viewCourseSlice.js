@@ -4,8 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     courseSectionData:[],
     courseEntireData:[],
-    completedLecture:[],
-    totalNoOfLecture:0
+    completedLectures:[],
+    totalNoOfLectures:0
 }
 
 const viewCourseSlice = createSlice({
@@ -19,13 +19,13 @@ const viewCourseSlice = createSlice({
             state.courseEntireData = action.payload;
         },
         setCompletedLecture: (state,action)=>{
-            state.completedLecture = action.payload
+            state.completedLectures = action.payload
         },
         setTotalNoOfLecture: (state,action)=>{
-            state.totalNoOfLecture = action.payload
+            state.totalNoOfLectures = action.payload
         },
         updatedCompletedLecture:(state,action)=>{
-            state.completedLecture = [...state.completedLecture, action.payload]
+            state.completedLectures = [...state.completedLectures, action.payload]
         },
     },
 })

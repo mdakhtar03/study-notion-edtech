@@ -7,6 +7,7 @@ import RequirementField from "./RequirementField";
 import IconBtn from "../../../../common/IconBtn";
 import { setStep } from "../../../../../reducer/slices/CourseSlice";
 import CourseThumbnail from "./CourseThumbnail"
+import TagsInput from "./TagsInput"
 const CourseInformationForm = () => {
 
     const {course, editCourse} = useSelector((state)=>state.course)
@@ -29,6 +30,7 @@ const CourseInformationForm = () => {
             }
             setLoading (false)
         }
+        getCategories();
         if(editCourse){
             setValue("courseTitle", course.courseName)
             setValue("courseShortDesc", course.courseDescription)
@@ -40,7 +42,6 @@ const CourseInformationForm = () => {
             setValue("courseImage", course.thumbnail)
         }
 
-        getCategories();
     },[])
 
     const onSubmit = async(data)=>{
@@ -70,12 +71,14 @@ const CourseInformationForm = () => {
         <div className="flex flex-col relative">
             <label>Course Price<sup>*</sup> </label>
             <>
-                    <input id="coursePrice" placeholder="Enter Course Price" 
-                    {...register("coursePrice",{required:true})} className=" px-3 p-3 outline-none bg-richblack-700 rounded-lg w-full" />
+                    <div className=" relative">
+                            <input id="coursePrice" placeholder="Enter Course Price" 
+                            {...register("coursePrice",{required:true})} className=" px-7 p-3 outline-none bg-richblack-700 rounded-lg w-full" />
+                            <FaIndianRupeeSign className=" absolute top-4 left-2" />
+                    </div>
                     {
                         errors.coursePrice && ( <span> Course Price is Required** </span>)
                     }
-                    <FaIndianRupeeSign className=" absolute top-[55%] " />
             </>
         </div>
         <div className="flex flex-col">
@@ -92,20 +95,17 @@ const CourseInformationForm = () => {
              </select>
              { errors.courseCategories && <span> Course Categories is Required** </span>}
         </div>
+
         {/* Create Tag Component */}
-        {/* <TagInput 
-                label="tags"
-                name:"courseTags"
-                palceholder
-                register,
-                errors,
-                setValues
-                getValues
-         /> */}
+        <TagsInput 
+            label="Tags" name="courseTags" placeholder="Enter tags and press Enter" register={register}
+            errors={errors} setValue={setValue} getValues={getValues}
+        />
          
          {/* Create a component for uploading and showing preview */}
          {/* <UploadThumnail/> */}
-            <CourseThumbnail/>
+            <CourseThumbnail label="Course Thumbnail" name="thumbnail" register={register}
+                errors={errors} setValue={setValue} getValues={getValues} />
 
          {/* Benefits  */}
          <div className="flex flex-col">

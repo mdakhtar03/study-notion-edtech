@@ -1,39 +1,46 @@
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { IoIosCloudUpload } from "react-icons/io";
 
-const CourseThumbnail = () => {
+const CourseThumbnail = ({label, name, register, errors, setValue, getValues }) => {
 
-   const {register,handleSubmit,setValue,formState:{errors}} =   useForm()
-   const [thumbnail,setThumnail] = useState(null)
+     const [thumbnail, setThumbnail] = useState(null);
+     const [preview,setPreview] = useState("");
+
+     function changeHandler(e){
+            const file = e.target.files[0];
+            if(file){
+                setThumbnail(file);
+                setPreview(URL.createObjectURL(file));
+                setValue(name,file)
+            }
+
+     }
+
+
+       useEffect(() => {
+        register(name, { required: true });
+  }, [register, name]);
+
+
+
+
+useEffect(()=>{
+    return ()=>{if (preview) {
+        URL.revokeObjectURL(preview);
+    }}
     
-   const handleFileChange= (event)=>{
-    const file = event.target.files[0]
-    setThumnail(URL.createObjectURL(file))
-    setValue("thumbnail",file)
-   }
-
+},[preview])
   return (
     <div>
-        <div>
-            <label> Course Thumbnail <sup>*</sup> </label>
-            <div className=' bg-richblack-700 py-8 px-3'>
-            
-                {
-                    thumbnail ? (<img src={thumbnail} alt='thumbnail' className=' aspect-video object-cover' />) 
-                                        : 
-                    (
-                        <> <input  type='file' className=''  
-                    {...register("thumnail",{required:true})}  onChange={handleFileChange} />
-                     <IoIosCloudUpload />       
-                    </>)
-                }
-            </div>
-            <div>
-                <button>Cancel</button>
-                
-            </div>
-        </div>
+        <label htmlFor='thumbnail'> {label} <sup> * </sup> </label>
+
+        {thumbnail ? (<div className='flex flex-col w-full h-auto bg-richblack-700'> <img src={preview} alt=''   /></div>):
+                                        (<div className=' bg-richblack-700 w-full h-52 '>
+                                         <input id='thumbnail' type='file' onChange={changeHandler} 
+                                          accept='image/*'/> 
+                                            
+                                        
+                                         </div>)}
+        
     </div>
   )
 }

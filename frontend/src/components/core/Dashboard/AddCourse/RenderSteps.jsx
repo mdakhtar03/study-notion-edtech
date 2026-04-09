@@ -34,14 +34,13 @@ const RenderSteps = () => {
             : "bg-richblack-800 border-richblack-700 text-richblack-300"
         }`}
       >
+       
         {step > items.id ? <FaCheckCircle /> : items.id}
       </div>
-        <p className=" flex-1" key={index}> {items.title} </p>
+        <p className=" " key={index}> {items.title} </p>
 
       {/* Line */}
-      {index < steps.length - 1 && (
-        <hr className="flex-1 flex-row border-t-2 border-dotted border-richblack-700 mx-2" />
-      )}
+      
 
     </div>
   ))}
