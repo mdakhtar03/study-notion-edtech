@@ -19,6 +19,8 @@ exports.createCourse = async (req,res)=>{
               status,instructions} = req.body;
       
      
+              console.log("BacEnd Request BODY ", req.body);
+              console.log(" Backend Recived files",req.files);
     
       //validation 
       if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category){
@@ -59,12 +61,14 @@ exports.createCourse = async (req,res)=>{
         })
       }
       
-      const thumbnail = req.files.thumbnailImage;
+      const thumbnail = req.files.thumbnail;
      
       //Upload image to cloudinary
       const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME)
        //get thumbnail
 
+       tag = JSON.parse(tag);
+       instructions = JSON.parse(instructions)
       //create an entry for new course
       const newCourse = await Course.create({
         courseName,

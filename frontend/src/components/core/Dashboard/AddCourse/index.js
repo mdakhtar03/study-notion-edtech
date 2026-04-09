@@ -3,14 +3,14 @@ export default function AddCourse(){
 
     return(
         <>
-            <div className="flex mx-auto justify-between text-richblack-5 gap-6  flex-1">
-                <div className=" flex-1">
+            <div className="flex mx-auto justify-between text-richblack-5 gap-6 ">
+                <div className="  shrink-0">
                     <h1> Add Course</h1>
                     <div>
                      <RenderSteps />
                       </div>
                 </div>
-                <div className="max-w-sm">
+                <div className="max-w-sm ">
                     <p> Course Upload Tips </p>
                     <ul>
                         <li>Set the Course Price option or make it free.</li>

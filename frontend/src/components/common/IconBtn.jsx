@@ -8,7 +8,8 @@ const IconBtn = ({
                     outline=false,
                     customClasses,
                     type,
-                    isstyle=false
+                    isstyle=false,
+                    showIcon= true
 }) => {
   
   return (
@@ -16,7 +17,7 @@ const IconBtn = ({
     ${isstyle ? "bg-yellow-50 flex items-center gap-x-2 h-fit px-5 py-2 rounded-lg text-richblack-900" : ""}
     ${customClasses || ""}`}  disabled={disabled} onClick={onclick}
      type={type} >
-      <MdEditDocument  />
+      { showIcon ? (<MdEditDocument  />) : ""}
         {
             children? (<><span> {text} </span> {children} </>) :(text)
         }

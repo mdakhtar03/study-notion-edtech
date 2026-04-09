@@ -56,12 +56,12 @@ function removeTag(indexToRemove){
 
   return (
     <div>
-        <label> {label} </label>
+        <label> {label} <sup className=' text-pink-200'>*</sup> </label>
         <input className=" p-3 outline-none bg-richblack-700 rounded-lg w-full" 
         placeholder={placeholder}
           onChange={tagBuilder} onKeyDown={handleKeyDown}/>
          {
-          errors[name] && <span> Add Tag to your course </span>
+          errors[name] && <span className=' text-pink-200'> Add Tag to your course </span>
          }
          
          

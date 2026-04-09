@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { FaCheckCircle } from "react-icons/fa";
 import CourseInformationForm from "./courseInformation/CourseInformationForm"
+import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
 const RenderSteps = () => {
 
     const {step} = useSelector((state)=>state.course)
@@ -21,6 +22,7 @@ const RenderSteps = () => {
     ]
 
   return (
+    <>
   <div className=" flex flex-col mx-auto">
     <div className="flex items-center">
   {steps.map((items, index) => (
@@ -46,11 +48,11 @@ const RenderSteps = () => {
   ))}
 </div>
     
-    {step === 1 && <CourseInformationForm/>}
-    {/* {step === 2 && <CourseBuilderForm/>}
-    {step === 3 && <PublishCourse/>} */}
   </div>
-  )
+    {step === 1 && <CourseInformationForm/>}
+    {step === 2 && <CourseBuilderForm/>}
+    {/* {step === 3 && <PublishCourse/>} */}
+  </>)
 }
 
 export default RenderSteps
