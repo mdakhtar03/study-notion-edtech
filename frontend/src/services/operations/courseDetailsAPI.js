@@ -26,13 +26,33 @@ export const addCourseDetails = async (data,token)=>{
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
         })
-        console.log("CREATE COURSE API RESPONSE.........",response)
+        // console.log("CREATE COURSE API RESPONSE.........",response)
         if(!response?.data?.success){
             throw new Error("Could Not Add Course Details");
         }
         result=response.data
     } catch (error) {
         console.log("CREATE COURSE API ERROR........",error)
+        toast.error(error.message);
+    }
+    toast.dismiss(toastId);
+    return result;
+}
+
+export const updateSection = async (data,token)=>{
+    let result = null;
+    const toastId = toast.loading("Loding...");
+    try {
+        const response = await apiConnector("POST",COURSE_API.UPDATE_SECTION_API, data,{
+            Authorization: `Bearer ${token}`,
+        })
+        console.log("Edit Course API Response....",response);
+        if(!response.data.success){
+            throw new Error("Could Not Update Section Details");   
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Failed to Update Section",error);
         toast.error(error.message);
     }
     toast.dismiss(toastId);
