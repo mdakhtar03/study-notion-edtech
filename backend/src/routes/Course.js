@@ -29,13 +29,13 @@ router.post("/createCourse",auth,isInstructor,createCourse)
 //Router for createSection
 router.post("/addSection" ,auth,isInstructor,createSection )
 //Router for update the section
-router.post("/updatesection",auth,isInstructor,updateSection)
+router.put("/updatesection",auth,isInstructor,updateSection)
 //Router for deleteSection
 router.post("/deleteSection", auth,isInstructor,deleteSection)
 //Router for create Subsection
 router.post("/addSubSection",auth,isInstructor,createSubsection)
 //Router for updateSubsection
-router.post("/updatesubsection",auth,isInstructor,updateSubSection)
+router.put("/updatesubsection",auth,isInstructor,updateSubSection)
 //Router for delete SubSection
 router.post("/deletesubsection",auth,isInstructor,deleteSubSection)
 //Router for getAllcourses

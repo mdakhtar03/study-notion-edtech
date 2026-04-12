@@ -20,7 +20,7 @@ exports.createSection = async (req, res)=>{
         //push section it to Course with section ObjectID
         const updatedCourseDetails = await Course.findByIdAndUpdate(courseId,{
             $push: {courseContent:newSection._id}
-        }, {returnDocument:"after"})
+        }, {new:true}).populate({path:"courseContent", populate:{path:"SubSection"}}).exec();
 
         //return response
         return res.status(200).json({
@@ -91,8 +91,9 @@ exports.deleteSection = async (req,res)=>{
         //     });
 
 
-        //delete then delete section
-        await Section.findByIdAndDelete(sectionId)
+        //delete section
+    //    const updatedSection = await Section.findByIdAndDelete(sectionId,{new:true})
+    await Section.findByIdAndDelete(sectionId)
 
 
         //TODO  this will be check in testing
@@ -105,7 +106,8 @@ exports.deleteSection = async (req,res)=>{
         //return response
         return res.status(200).json({
             success:true,
-            message:"Section Deleted Successfully"
+            message:"Section Deleted Successfully",
+            // updatedSection
         })
     } catch (error) {
         return res.status(500).json({

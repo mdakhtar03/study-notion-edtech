@@ -1,6 +1,8 @@
 import toast from "react-hot-toast"
 import { apiConnector } from "../apiconnector"
 import {COURSE_API} from "../apis"
+
+
 export const fetchCourseCategories = async ()=>{
     let result = []
     try {
@@ -43,18 +45,101 @@ export const updateSection = async (data,token)=>{
     let result = null;
     const toastId = toast.loading("Loding...");
     try {
-        const response = await apiConnector("POST",COURSE_API.UPDATE_SECTION_API, data,{
+        const response = await apiConnector("PUT",COURSE_API.UPDATE_SECTION_API, data,{
             Authorization: `Bearer ${token}`,
         })
-        console.log("Edit Course API Response....",response);
+        // console.log("Edit Section API Response....",response);
         if(!response.data.success){
             throw new Error("Could Not Update Section Details");   
         }
         result = response.data;
     } catch (error) {
-        console.log("Failed to Update Section",error);
+        console.log("Failed to Update Section.............",error);
         toast.error(error.message);
     }
     toast.dismiss(toastId);
+    return result;
+}
+
+export const createSection = async (data,token)=>{
+    let result = null;
+    const toastId = toast.loading("Loading...")
+    try {
+        const response = await apiConnector("POST",COURSE_API.CREATE_SECTION_API,data,{
+            Authorization: `Bearer ${token}`,
+        })
+        // console.log("Create Section API Response........",response);
+        if(!response.data.success){
+            throw new Error("Could Not Create Section Details........"); 
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Failed to Create Section..............",error);
+        toast.error(error.message);
+    }
+    toast.dismiss(toastId);
+    toast.success(result.message);
+    return result;
+}
+
+export const deleteSection = async (data,token)=>{
+    let result=null;
+    const toastId = toast.loading("Loading...");
+    try {
+        const response = await apiConnector("POST", COURSE_API.DELETE_SECTION_API,data,
+            {Authorization: `Bearer ${token}`},
+        )
+        console.log("Response from deleteSection",response)
+        if(!result.data.success){
+            throw new Error("Success false");
+        }
+        result=response.data;
+    } catch (error) {
+        console.log("Failed to Delete Section..............",error)
+        toast.error(error.message);
+    }
+    toast.dismiss(toastId);
+    toast.success(result.message);
+    return result;
+}
+
+export const deleteSubSection = async (data,token)=>{
+    let result=null;
+    const toastId = toast.loading("Loading...")
+    try {
+        const response = await apiConnector("POST",COURSE_API.DELETE_SUBSECTION_API,data,
+            {Authorization: `Bearer ${token}`})
+        console.log("Reponse from Delete SubtionSection",response)
+        if(!response.data.success){
+            throw new Error("Failed to Delete Sub Section....");    
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Failed to Delete Sub Section..............",error)
+        toast.error(error.message);
+    }
+    toast.dismiss(toastId);
+    toast.success(result.message);
+    return result;
+}
+
+export const createSubSection = async (data,token)=>{
+    let result = null;
+    const toastId = toast.loading("Loading")
+    try {
+        const response = await apiConnector("POST",COURSE_API.CREATE_SUBSECTION_API,data,{
+            Authorization: `Bearer ${token}`
+        })
+        console.log("Reponse from Creating SubSection",response)
+        if(!response.data.success){
+            throw new Error("Failed to Create SubSection");
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Failed to Create SubSection....",error)
+        toast.error(error.message);
+    }
+    toast.dismiss(toastId);
+    toast.success(result.message);
     return result;
 }

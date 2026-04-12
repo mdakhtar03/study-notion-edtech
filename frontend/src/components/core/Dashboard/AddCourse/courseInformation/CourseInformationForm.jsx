@@ -96,9 +96,13 @@ const CourseInformationForm = () => {
 
         setLoading(true);
         const result = await addCourseDetails(formData,token);
+        // console.log("Result ====================",result);
+        // console.log("Result => data ====================",result.data);
+       
+        
         if(result){
             dispatch(setStep(2));
-            dispatch(setCourses(result));
+            dispatch(setCourses(result?.data));
         }
         setLoading(false);
         console.log("PRINTING FORMDATA >>>>>>>>>>>>>>>>>  ",formData)

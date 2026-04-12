@@ -4,9 +4,15 @@ import IconBtn from '../../../../common/IconBtn';
 import { GoPlusCircle } from "react-icons/go";
 import { useDispatch, useSelector } from 'react-redux';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { setEditCourse, setStep } from '../../../../../reducer/slices/CourseSlice';
+import { setEditCourse, setStep,setCourses } from '../../../../../reducer/slices/CourseSlice';
 import toast from 'react-hot-toast';
-import { updateSection } from '../../../../../services/operations/courseDetailsAPI';
+import { createSection, updateSection } from '../../../../../services/operations/courseDetailsAPI';
+import NestedView from './NestedView';
+
+
+
+
+
 const CourseBuilderForm = () => {
 
 const {register, handleSubmit, setValue, formState:{errors}} =useForm();
@@ -14,7 +20,7 @@ const [editSectionName,setEditSectionName] = useState(null);
 const {course}=useSelector((state)=>state.course)
 const [loading,setLoading]= useState(false);
 const dispatch = useDispatch();
-const {token} = useState((state)=>state.auth)
+const {token} = useSelector((state)=>state.auth)
 
 const cancelEdit=()=>{
   setEditSectionName(null);
@@ -25,7 +31,7 @@ const goBack=()=>{
   dispatch(setStep(1))
   dispatch(setEditCourse(true))
 }
-
+ 
 const gotToNext = ()=>{
   if(course.courseContent.length === 0){
     toast.error("Please Add List One Section")
@@ -40,6 +46,7 @@ const gotToNext = ()=>{
 }
 
 const onSubmit = async (data)=>{
+  console.log("DATA of Course BUILDER ",data);
   setLoading(true);
   let result;
   if(editSectionName){
@@ -47,12 +54,44 @@ const onSubmit = async (data)=>{
     result = await updateSection(
               {
                 sectionName: data.sectionName,
-                sectionId: data.editSectionName
-              })
+                sectionId: editSectionName
+              },token)
   }
+
+  else {
+     result = await createSection(
+      {
+        sectionName: data.sectionName,
+        courseId: course?._id,
+      },token)
+
+      //update values 
+      console.log("REsult of CourseBuilder ",result)
+      // console.log("Course ID ####",course._id)
+    }
+    
+    if(result){
+      dispatch((setCourses(result?.updatedCourseDetails)))
+      setEditSectionName(null);
+      setValue("sectionName","");
+    }
+
+  setLoading(false);
+}
+
+const handleChangeEditSectionName = (sectionId, sectionName)=>{
+  if(editSectionName === sectionId){
+    cancelEdit();
+    return
+  }
+
+  setEditSectionName(sectionId);
+  setValue("sectionName",sectionName);
 }
 
 
+
+// console.log("course?.courseContent._id" ,course?.courseContent._id)
   return (
     <div className=' bg-richblack-800 rounded-lg p-3'>
         <p > Course Builder</p>
@@ -80,14 +119,15 @@ const onSubmit = async (data)=>{
         
         
         {/* Nested view: Section -> SubSection */}
-            {course.courseContent.length>0 && (<NestedView/>) }
+            {course?.courseContent.length>0 && 
+            (<NestedView handleChangeEditSectionName={handleChangeEditSectionName}/>) }
 
             
-        <div className='flex justify-end gap-x-3'> 
+        <div className='flex justify-end gap-x-3 mt-10'> 
             <button type='button' onClick={goBack} className=' rounded-md cursor-pointer '> 
                   Back 
             </button> 
-            <IconBtn text={"Next"} onclick={gotToNext}>
+            <IconBtn isstyle={true} showIcon={false} text={"Next"} onclick={gotToNext}>
                   <MdOutlineKeyboardArrowRight />
             </IconBtn>
         </div>
