@@ -47,7 +47,7 @@ const SubSectionModal = ({
         const currentValues = getValues();
         const formData = new FormData();
         
-    }
+    }    
 
     const onSubmit= async (data)=>{
         if(view){
