@@ -7,7 +7,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { setEditCourse, setStep,setCourses } from '../../../../../reducer/slices/CourseSlice';
 import toast from 'react-hot-toast';
 import { createSection, updateSection } from '../../../../../services/operations/courseDetailsAPI';
-import NestedView from './NestedView';
+import NestedView from './NestedView'
 
 
 

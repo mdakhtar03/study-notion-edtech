@@ -92,7 +92,7 @@ exports.updateSubSection = async (req,res)=>{
             subSection.timeDuration = uploadDetails.duration
         }
         
-        await subSection.save();
+        await subSection.save()
             //return
             return res.status(200).json({
                 success:true,

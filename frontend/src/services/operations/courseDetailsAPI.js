@@ -125,7 +125,7 @@ export const deleteSubSection = async (data,token)=>{
 
 export const createSubSection = async (data,token)=>{
     let result = null;
-    const toastId = toast.loading("Loading")
+    const toastId = toast.loading("Loading...")
     try {
         const response = await apiConnector("POST",COURSE_API.CREATE_SUBSECTION_API,data,{
             Authorization: `Bearer ${token}`
@@ -142,4 +142,25 @@ export const createSubSection = async (data,token)=>{
     toast.dismiss(toastId);
     toast.success(result.message);
     return result;
+}
+
+
+export const updateSubSection = async (data,token)=>{
+    let result = null;
+    const toastId = toast.loading("Loading...")
+    try {
+        const response = await apiConnector("POST",COURSE_API.UPDATE_SUBSECTION_API,data,{
+            Authorization:`Bearer ${token}`
+        })
+        if(!response.data.success){
+            throw new Error("Failed to updata");
+        }
+        result = response.data;
+    } catch (error) {
+        console.log("Failed to Update SubSection....",error);
+        toast.error(error.message);
+    }
+    toastId.dismiss();
+    toast.success("SubSection Update Successfully")
+    return result
 }

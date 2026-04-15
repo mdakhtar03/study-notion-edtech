@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSubSection } from '../../../../../services/operations/courseDetailsAPI';
-import { set } from 'mongoose';
+import { createSubSection, updateSubSection } from '../../../../../services/operations/courseDetailsAPI';
+
 import { setCourses } from '../../../../../reducer/slices/CourseSlice';
 
 
@@ -46,7 +46,26 @@ const SubSectionModal = ({
     const handleEditSubSection = async ()=>{
         const currentValues = getValues();
         const formData = new FormData();
+        formData.append("sectionId",modalData.sectionId);
+        formData.append("subSectionId",modalData._id);
         
+        if(currentValues.lectureTitle !== modalData.title){
+            formData.append("title",currentValues.lectureTitle)
+        }
+        if(currentValues.lectureDesc !== modalData.description){
+            formData.append("description",currentValues.lectureDesc)
+        }
+        if(currentValues.lectureVideo !== modalData.video){
+            formData.append("video",currentValues.lectureVideo)
+        }
+        setLoading(true);
+        //API call
+        const result = await updateSubSection(formData,token)
+        if(result){
+            dispatch(setCourses(result))
+        }
+        setModalData(null);
+        setLoading(false);
     }    
 
     const onSubmit= async (data)=>{
