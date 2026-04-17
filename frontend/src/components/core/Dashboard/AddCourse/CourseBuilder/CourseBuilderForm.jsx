@@ -54,7 +54,8 @@ const onSubmit = async (data)=>{
     result = await updateSection(
               {
                 sectionName: data.sectionName,
-                sectionId: editSectionName
+                sectionId: editSectionName,
+                courseId:course._id
               },token)
   }
 
@@ -71,7 +72,7 @@ const onSubmit = async (data)=>{
     }
     
     if(result){
-      dispatch((setCourses(result?.updatedCourseDetails)))
+      dispatch((setCourses(result?.data)))
       setEditSectionName(null);
       setValue("sectionName","");
     }

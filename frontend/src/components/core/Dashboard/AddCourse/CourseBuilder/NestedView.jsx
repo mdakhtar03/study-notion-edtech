@@ -23,8 +23,10 @@ const NestedView = ({handleChangeEditSectionName}) => {
     
     const handleDeleteSection= async (sectionId)=>{
         const result = await deleteSection({sectionId, courseId:course._id},token)
+        console.log("Result",result)
         if(result){
-            dispatch(setCourses(result))
+           
+            dispatch(setCourses(result.data))
         }
         setConfirmationModal(null)
     }
@@ -32,7 +34,10 @@ const NestedView = ({handleChangeEditSectionName}) => {
 const handleDeleteSubSection= async (subSectionId,sectionId)=>{
     const result = await deleteSubSection({subSectionId,sectionId},token)
     if(result){
-
+        const updatedCourseContent = course.courseContent.map((section)=>
+            section._id === sectionId ? result : section);
+        const updatedCourse ={...course, courseContent: updatedCourseContent}
+        dispatch(setCourses(updatedCourse))
     }
     setConfirmationModal(null)
 
@@ -100,7 +105,7 @@ const handleDeleteSubSection= async (subSectionId,sectionId)=>{
                                 </div>
                             ))
                          }
-                         <button onClick={setAddSubSection(section._id)}
+                         <button onClick={()=>setAddSubSection(section._id)}
                             className='mt-4 flex items-center gap-x-2 text-yellow-50'
                          >
                             <CiSquarePlus/>

@@ -86,7 +86,7 @@ exports.createCourse = async (req,res)=>{
 
         //add the new course schema of instructor
         await User.findByIdAndUpdate({_id: instructorDetails._id},{
-          $push:{courses: newCourse._id}
+          $push:{course: newCourse._id}
         },{returnDocument:"after"})
 
 

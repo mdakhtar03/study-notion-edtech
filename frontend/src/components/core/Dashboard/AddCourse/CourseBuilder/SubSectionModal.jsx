@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSubSection, updateSubSection } from '../../../../../services/operations/courseDetailsAPI';
-
+import { RxCrossCircled } from "react-icons/rx";
 import { setCourses } from '../../../../../reducer/slices/CourseSlice';
-
+import IconBtn from '../../../../common/IconBtn';
+import Upload from './Upload';
 
 const SubSectionModal = ({
     modalData,
@@ -62,7 +63,10 @@ const SubSectionModal = ({
         //API call
         const result = await updateSubSection(formData,token)
         if(result){
-            dispatch(setCourses(result))
+            const updatedCourseContent = course.courseContent.map((section)=>
+            section._id === modalData.sectionId ? result: section);
+            const updatedCourse = {...course,updatedCourseContent}
+            dispatch(setCourses(updatedCourse))
         }
         setModalData(null);
         setLoading(false);
@@ -91,16 +95,67 @@ const SubSectionModal = ({
         //API call 
         const result = await createSubSection(formData,token)
         if(result){
-            dispatch(setCourses(result.data))
+
+            const updatedCourseContent = course.courseContent.map((section)=>
+            section._id === modalData ? result : section)
+            const updatedCourse = {...course,updatedCourseContent}
+            dispatch(setCourses(updatedCourse))
         }
         setModalData(null);
-        setLoading(false);
-       
+        setLoading(false); 
     }
 
 
   return (
     <div>
+            <div>
+                <div> 
+                <p> {view && "Viewing"} { add && "Adding"} {edit && "Editing"} Lecture </p> 
+                <button onClick={() => (!loading ? setModalData(null): {})}> <RxCrossCircled /> </button>
+                </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Upload 
+                        name="LectureVideo" 
+                        label="Lecture Video"
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                        errors={errors}
+                        video={true}
+                        viewData={view ? modalData.videoUrl : null}
+                        editData={edit ? modalData.videoUrl : null}
+                    />
+                <div>
+                    <label> Lecture Title </label>
+                    <input 
+                        id='lectureTitle'
+                        placeholder='Enter Lecture'
+                        {...register("lectureTitle",{required:true})}
+                    />
+                    {errors.lectureTitle && <span> Lecture Title is required </span>}
+                </div>
+                <div>
+                    <label> Lecture Description </label>
+                    <textarea 
+                        id='lectureDesc'
+                        placeholder='Enter Lecture Description'
+                        {...register("lectureDesc",{required:true})}
+                        
+                    />
+                    {errors.lectureDesc && <span> Lecture Description is required </span>}
+                </div>
+                 { 
+                    !view && (
+                        <div>
+                            <IconBtn showIcon={false} isstyle={true}
+                                text={ edit ? "Save Changes" : "Add Lecture"}
+                            />
+                            
+                        </div>
+                    )
+                 }
+                </form>
+            </div>
 
     </div>
   )

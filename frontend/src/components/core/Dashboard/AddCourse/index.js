@@ -3,7 +3,7 @@ export default function AddCourse(){
 
     return(
         <>
-            <div className="flex mx-auto justify-between text-richblack-5 gap-6 ">
+            <div className=" sm:flex sm:flex-col lg:flex lg:flex-row mx-auto justify-between text-richblack-5 gap-6 ">
                 <div className=" flex-1  shrink-0">
                     <h1> Add Course</h1>
                     <div>

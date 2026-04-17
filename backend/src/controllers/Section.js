@@ -26,7 +26,7 @@ exports.createSection = async (req, res)=>{
         return res.status(200).json({
             success:true,
             message:"Section created Successfully",
-            updatedCourseDetails
+            data:updatedCourseDetails
         })
     } catch (error) {
         return res.status(500).json({
@@ -40,7 +40,7 @@ exports.createSection = async (req, res)=>{
 exports.updateSection = async (req, res) =>{
     try {
         //data input
-        const {sectionName, sectionId} = req.body
+        const {sectionName, sectionId, courseId} = req.body
 
         //data validation
         if(!sectionName || !sectionId){
@@ -53,11 +53,18 @@ exports.updateSection = async (req, res) =>{
         //update data
         const updatedSection = await Section.findByIdAndUpdate(sectionId,{sectionName:sectionName},{new:true})
         
+        const course = await Course.findById(courseId)
+        .populate({
+            path:"courseContent",
+            populate:{
+                path:"SubSection"
+            },
+        })
         //return response
         return res.status(200).json({
             success:true,
-            message:"Section Updated section updated successfull",
-            updatedSection
+            message:"Section Updated Successfully",
+            data:course
         })
 
     } catch (error) {
@@ -71,44 +78,32 @@ exports.updateSection = async (req, res) =>{
 
 exports.deleteSection = async (req,res)=>{
     try {
-
-        //fetch data 
-       
-        const {courseId,sectionId} = req.body
-
-        //validation
-        if(!sectionId || !courseId){
-            return res.status(400).json({
-            success:false,
-            message:"Id is missing",
+        const {sectionId, courseId} = req.body;
+        await Course.findOneAndUpdate( { _id: courseId },{
+            $pull:{ courseContent : sectionId}
+        })
+        const section = await Section.findById(sectionId)
+        if(!section){
+            return res.status(404).json({
+                success:false,
+                message:"Section Not Found"
             })
         }
+        await SubSection.deleteMany({ _id: {$in : section.SubSection}});
+        await Section.findByIdAndDelete(sectionId);
+        const course = await Course.findById(courseId).populate({
+            path:"courseContent",
+            populate:{
+                path: "SubSection"
+            }
+        }).exec()
 
-        // first delete all subsection
-        // const section = await Section.findById(sectionId)
-        // await SubSection.deleteMany({
-        // _id: { $in: section.SubSection }
-        //     });
-
-
-        //delete section
-    //    const updatedSection = await Section.findByIdAndDelete(sectionId,{new:true})
-    await Section.findByIdAndDelete(sectionId)
-
-
-        //TODO  this will be check in testing
-        //pull Id from course collection 
-
-        // await Course.findByIdAndUpdate(courseId,{
-        //     $pull:{courseContent:sectionId}
-        // }, {returnDocument:"after"})
-
-        //return response
-        return res.status(200).json({
+        res.status(200).json({
             success:true,
-            message:"Section Deleted Successfully",
-            // updatedSection
+            message:"Section deleted",
+            data:course
         })
+
     } catch (error) {
         return res.status(500).json({
             success:false,

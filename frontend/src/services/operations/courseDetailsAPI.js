@@ -53,6 +53,7 @@ export const updateSection = async (data,token)=>{
             throw new Error("Could Not Update Section Details");   
         }
         result = response.data;
+        console.log("Result of updated section",result);
     } catch (error) {
         console.log("Failed to Update Section.............",error);
         toast.error(error.message);
@@ -83,14 +84,14 @@ export const createSection = async (data,token)=>{
 }
 
 export const deleteSection = async (data,token)=>{
-    let result=null;
+    let result;
     const toastId = toast.loading("Loading...");
     try {
         const response = await apiConnector("POST", COURSE_API.DELETE_SECTION_API,data,
             {Authorization: `Bearer ${token}`},
         )
         console.log("Response from deleteSection",response)
-        if(!result.data.success){
+        if(!response.data.success){
             throw new Error("Success false");
         }
         result=response.data;
@@ -99,7 +100,7 @@ export const deleteSection = async (data,token)=>{
         toast.error(error.message);
     }
     toast.dismiss(toastId);
-    toast.success(result.message);
+    toast.success("Section Deleted");
     return result;
 }
 
@@ -155,7 +156,7 @@ export const updateSubSection = async (data,token)=>{
         if(!response.data.success){
             throw new Error("Failed to updata");
         }
-        result = response.data;
+        result = response.data.data;
     } catch (error) {
         console.log("Failed to Update SubSection....",error);
         toast.error(error.message);
